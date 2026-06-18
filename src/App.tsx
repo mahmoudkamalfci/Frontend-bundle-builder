@@ -5,20 +5,21 @@ import {
   Check,
   Plus,
   Minus,
-  ArrowRight,
-  Sparkles,
-  Truck
+  Sparkles
 } from 'lucide-react'
 import { ProductCard } from './components/ProductCard'
 import type { Product } from './components/ProductCard'
 import { cn } from '@/lib/utils'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/ui/accordion'
+import { Button } from './components/ui/button'
 import productsData from './data/products.json'
 import productImg from './assets/images/products/product-2.png'
 import cameraIcon from './assets/images/icons/camera-accordion-icon.png'
 import securityIcon from './assets/images/icons/security-accordion-icon.png'
 import sensorIcon from './assets/images/icons/sensor-accordion-icon.png'
 import protectionIcon from './assets/images/icons/protection-accordion-icon.png'
+import fastShippingIcon from './assets/images/icons/fast_shipping.png'
+import satisfactionBadge from './assets/images/icons/satisfaction_badge.png'
 import './App.css'
 
 // ─── Seed Data ────────────────────────────────────────────────────────────────
@@ -40,36 +41,6 @@ const SEED_VARIANTS: Record<string, string> = {
 }
 
 // ─── Module-Level Sub-Components ──────────────────────────────────────────────
-
-/** Scalloped satisfaction seal */
-const ScallopSeal = () => {
-  const points = 24
-  const innerR = 41
-  const outerR = 50
-  const cx = 50
-  let d = ''
-  for (let i = 0; i < points * 2; i++) {
-    const angle = (i * Math.PI) / points
-    const r = i % 2 === 0 ? outerR : innerR
-    const x = cx + r * Math.cos(angle)
-    const y = cx + r * Math.sin(angle)
-    d += i === 0 ? `M ${x} ${y}` : ` L ${x} ${y}`
-  }
-  d += ' Z'
-  return (
-    <div className="relative size-[72px] shrink-0 flex items-center justify-center select-none">
-      <svg viewBox="0 0 100 100" className="absolute inset-0 size-full text-[#4C1D95] fill-current">
-        <path d={d} />
-      </svg>
-      <div className="relative z-10 flex flex-col items-center text-center text-white leading-[1.15] px-2">
-        <span className="text-[12px] font-black tracking-tight">100%</span>
-        <span className="text-[5px] font-bold tracking-widest uppercase">WYZE</span>
-        <span className="text-[5px] tracking-tight leading-none font-medium opacity-90 mt-0.5">satisfaction</span>
-        <span className="text-[5.5px] font-extrabold uppercase mt-0.5 border border-white px-0.5 rounded-[1px]">GUARANTEE</span>
-      </div>
-    </div>
-  )
-}
 
 
 /** Step icon renderer */
@@ -98,7 +69,6 @@ interface ReviewItemProps {
   product: Product
   qty: number
   variantId: string
-  variantName?: string
   isHub?: boolean
   isPlan?: boolean
   onQtyChange: (productId: string, variantId: string, qty: number) => void
@@ -108,7 +78,6 @@ function ReviewItem({
   product,
   qty,
   variantId,
-  variantName,
   isHub = false,
   isPlan = false,
   onQtyChange,
@@ -122,67 +91,76 @@ function ReviewItem({
   return (
     <div className="flex items-center justify-between gap-3">
       {/* Thumbnail + name */}
-      <div className="flex items-center flex-1 min-w-0 gap-2.5">
+      <div className="flex items-center flex-1 min-w-0 gap-3">
         {isPlan ? (
-          <div className="size-10 shrink-0 bg-violet-50 border border-violet-100 rounded-xl flex items-center justify-center">
-            <Shield className="size-5 text-[#7C3AED]" />
+          <div className="size-10 shrink-0 bg-transparent flex items-center justify-center">
+            <Shield className="size-6 text-[#4E2FD2]" strokeWidth={1.5} />
           </div>
         ) : (
-          <div className="size-10 shrink-0 bg-neutral-50 border border-neutral-100 rounded-xl flex items-center justify-center p-1">
+          <div className="size-10 shrink-0 bg-white rounded-[5px] flex items-center justify-center p-1 shadow-sm">
             <img src={productImg} alt={product.title} style={imageStyle} className="max-h-full max-w-full object-contain" />
           </div>
         )}
         <div className="flex flex-col min-w-0">
-          <span className="font-semibold text-[11px] text-neutral-900 leading-tight truncate">{product.title}</span>
-          {variantName ? (
-            <span className="text-[10px] font-bold text-[#7C3AED] mt-0.5 leading-none">{variantName}</span>
-          ) : null}
+          {isPlan && product.id === 'cam-unlimited-plan' ? (
+            <span className="text-[15px] leading-tight truncate">
+              <span className="font-bold text-[#1F1F1F]">Cam</span> <span className="font-bold text-[#4E2FD2]">Unlimited</span>
+            </span>
+          ) : (
+            <span className="text-sm text-[#0B0D10] leading-4 truncate">{product.title}</span>
+          )}
         </div>
       </div>
 
       {/* Stepper */}
-      <div className="flex items-center bg-neutral-100 border border-neutral-200 rounded-lg p-0.5 gap-0.5 shrink-0">
-        <button
-          disabled={isHub}
-          onClick={() => onQtyChange(product.id, variantId, qty - 1)}
-          className="size-5.5 flex items-center justify-center bg-white border border-neutral-200 text-neutral-500 rounded-md hover:bg-neutral-50 transition-colors disabled:opacity-35 disabled:cursor-not-allowed"
-        >
-          <Minus className="size-2.5 stroke-[3px]" />
-        </button>
-        <span className="w-5 text-center font-bold text-[11px] text-neutral-900 tabular-nums">{qty}</span>
-        <button
-          disabled={isHub}
-          onClick={() => onQtyChange(product.id, variantId, qty + 1)}
-          className="size-5.5 flex items-center justify-center bg-white border border-neutral-200 text-neutral-500 rounded-md hover:bg-neutral-50 transition-colors disabled:opacity-35 disabled:cursor-not-allowed"
-        >
-          <Plus className="size-2.5 stroke-[3px]" />
-        </button>
-      </div>
+      {!isPlan && (
+        <div className="flex items-center gap-1.5 shrink-0">
+          <Button
+            variant="outline"
+            disabled={isHub}
+            onClick={() => onQtyChange(product.id, variantId, qty - 1)}
+            className="size-5 p-0 flex items-center justify-center bg-white border-2 border-[#E6EBF0] text-neutral-400 hover:text-neutral-600 disabled:opacity-35 rounded-sm transition-all cursor-pointer hover:bg-neutral-50 active:scale-95 shadow-none"
+            aria-label="Decrease quantity"
+          >
+            <Minus className="size-2 stroke-[3px]" />
+          </Button>
+          <span className="w-5 text-center text-[#0B0D10] text-sm leading-4 tabular-nums select-none">{qty}</span>
+          <Button
+            variant="outline"
+            disabled={isHub}
+            onClick={() => onQtyChange(product.id, variantId, qty + 1)}
+            className="size-5 p-0 flex items-center justify-center bg-white border-2 border-[#E6EBF0] text-neutral-600 hover:text-neutral-800 rounded-sm transition-all cursor-pointer hover:bg-neutral-200 active:scale-95 shadow-none"
+            aria-label="Increase quantity"
+          >
+            <Plus className="size-2 stroke-[3px]" />
+          </Button>
+        </div>
+      )}
 
       {/* Price */}
-      <div className="w-[64px] text-right shrink-0 leading-none">
+      <div className="w-[64px] text-right shrink-0 leading-none flex flex-col items-end justify-center">
         {isHub ? (
           <>
-            <span className="block text-[9px] text-neutral-400 line-through font-normal mb-0.5">$29.92</span>
-            <span className="font-extrabold text-[11px] text-emerald-600">FREE</span>
+            <span className="block text-[12px] text-[#575757] line-through mb-0.5">$29.92</span>
+            <span className="font-bold text-[14px] text-[#4E2FD2]">FREE</span>
           </>
         ) : isPlan ? (
           <>
             {product.compareAtPrice ? (
-              <span className="block text-[9px] text-neutral-400 line-through font-normal mb-0.5">
+              <span className="block text-[12px] text-[#575757] line-through mb-0.5">
                 ${(product.compareAtPrice * qty).toFixed(2)}/mo
               </span>
             ) : null}
-            <span className="font-extrabold text-[11px] text-[#7C3AED]">${(product.price * qty).toFixed(2)}/mo</span>
+            <span className="font-semibold text-[14px] text-[#4E2FD2]">${(product.price * qty).toFixed(2)}/mo</span>
           </>
         ) : (
           <>
             {product.compareAtPrice ? (
-              <span className="block text-[9px] text-neutral-400 line-through font-normal mb-0.5">
+              <span className="block text-sm text-[#6F7882] line-through leading-4 mb-0.5">
                 ${(product.compareAtPrice * qty).toFixed(2)}
               </span>
             ) : null}
-            <span className="font-extrabold text-[11px] text-[#7C3AED]">${(product.price * qty).toFixed(2)}</span>
+            <span className="font-semibold text-sm text-[#4E2FD2] leading-4">${(product.price * qty).toFixed(2)}</span>
           </>
         )}
       </div>
@@ -356,7 +334,7 @@ function App() {
                       <span className="text-[#484848] text-xs font-normal uppercase tracking-widest leading-none px-4">
                         Step {step.number} of 4
                       </span>
-                      <hr className="flex-1 border-t border-neutral-200" />
+                      <hr className="flex-1 border-t border-[#1F1F1F]" />
                     </div>
                     <div className="flex items-center justify-between w-full pl-4 pr-10">
                       <div className="flex items-center gap-3">
@@ -379,11 +357,12 @@ function App() {
 
                   <AccordionContent className="bg-[#EDF4FF] px-5 pt-4 pb-5 flex flex-col gap-4 border-t border-neutral-100">
                     {/* Product Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                      {(step.products as unknown as Product[]).map((product) => {
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {(step.products as unknown as Product[]).map((product, idx, arr) => {
                         const activeVarId = selectedVariants[product.id] || product.variants?.[0]?.id || 'default'
                         const variantQty = cart[`${product.id}::${activeVarId}`] || 0
                         const isSelected = isCardSelected(product)
+                        const isLastAndOdd = arr.length % 2 !== 0 && idx === arr.length - 1
                         return (
                           <ProductCard
                             key={product.id}
@@ -393,7 +372,7 @@ function App() {
                             isSelected={isSelected}
                             onQuantityChange={(vId, qty) => handleQuantityChange(product.id, vId, qty)}
                             onVariantChange={(vId) => handleVariantChange(product.id, vId)}
-                            className={cn(product.id === 'wyze-battery-cam-pro' ? 'sm:col-span-2' : '')}
+                            className={cn(isLastAndOdd ? 'sm:col-span-2 sm:justify-self-center sm:w-[calc(50%-8px)]' : '')}
                           />
                         )
                       })}
@@ -401,13 +380,13 @@ function App() {
 
                     {/* Next step button */}
                     {stepIdx < 3 ? (
-                      <button
+                      <Button
+                        variant="outline"
                         onClick={() => setExpandedStepIndex(stepIdx + 1)}
-                        className="self-center mt-1 flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold py-2.5 px-6 rounded-xl text-sm transition-colors duration-150 cursor-pointer active:scale-[0.97] shadow-sm"
+                        className="self-center border-[#4E2FD2] text-lg text-[#4E2FD2] bg-transparent hover:bg-[#4E2FD2]/5 h-10 px-6 rounded-[8px] transition-colors duration-150 cursor-pointer active:scale-[0.97]"
                       >
                         Next: {productsData.steps[stepIdx + 1].title}
-                        <ArrowRight className="size-4 stroke-[2.5px]" />
-                      </button>
+                      </Button>
                     ) : null}
                   </AccordionContent>
                 </AccordionItem>
@@ -419,60 +398,41 @@ function App() {
 
         {/* Right Column: Sticky Review Panel (5/12) */}
         <div className="lg:col-span-4 sticky top-6">
-          <div className="bg-white border border-neutral-200 rounded-2xl shadow-[0_1px_4px_rgba(0,0,0,0.06)] overflow-hidden">
+          <div className="bg-[#EDF4FF] rounded-[10px] flex flex-col p-6 overflow-hidden">
 
             {/* Panel Header */}
-            <div className="px-5 pt-5 pb-4 border-b border-neutral-100">
-              <p className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-400">Review</p>
-              <h2 className="text-[17px] font-bold text-neutral-900 mt-0.5 leading-tight">Your security system</h2>
-              <p className="text-[11.5px] text-neutral-400 mt-1 leading-relaxed">Review your personalized protection plan.</p>
+            <div className="pb-3 mb-3 border-b border-[#CED6DE]">
+              <span className="inline-block text-[#484848] text-xs uppercase tracking-widest leading-none mb-4">Review</span>
+              <h2 className="text-[22px] text-[#1F1F1F] leading-tight">Your security system</h2>
+              <p className="text-sm text-[#1F1F1FBF] mt-2 leading-relaxed">Review your personalized protection system designed to keep what matters most safe.</p>
             </div>
 
             {/* Scrollable item list */}
-            <div className="px-5">
+            <div className="flex flex-col flex-1">
               {!summary.hasItems ? (
                 <div className="py-10 flex flex-col items-center justify-center gap-3 text-center">
-                  <div className="bg-neutral-50 p-3.5 rounded-2xl text-neutral-300">
-                    <ShoppingBag className="size-6" />
+                  <div className="bg-white p-4 rounded-2xl text-neutral-300">
+                    <ShoppingBag className="size-6 text-[#A8B2BD]" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-neutral-500">Your system is empty</p>
-                    <p className="text-xs text-neutral-400 mt-0.5 max-w-[200px] mx-auto leading-relaxed">
+                    <p className="text-sm font-semibold text-[#1F1F1F]">Your system is empty</p>
+                    <p className="text-xs text-[#1F1F1FBF] mt-1 max-w-[200px] mx-auto leading-relaxed">
                       Select products from the steps on the left to start building.
                     </p>
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col max-h-[340px] overflow-y-auto -mx-1 px-1">
+                <div className="flex flex-col max-h-[350px] overflow-y-auto">
                   {summary.cameras.length > 0 ? (
-                    <div className="pt-4 pb-3">
-                      <p className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-400 mb-2.5">Cameras</p>
-                      <div className="flex flex-col gap-3">
-                        {summary.cameras.map(({ product, qty, variantId, variantName }) => (
+                    <div className="pb-3 border-b border-[#CED6DE]">
+                      <p className="text-xs uppercase text-[#A8B2BD] leading-4 pb-1">Cameras</p>
+                      <div className="flex flex-col gap-4">
+                        {summary.cameras.map(({ product, qty, variantId }) => (
                           <ReviewItem
                             key={`${product.id}::${variantId}`}
                             product={product}
                             qty={qty}
                             variantId={variantId}
-                            variantName={variantName}
-                            onQtyChange={handleQuantityChange}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  ) : null}
-
-                  {summary.plans.length > 0 ? (
-                    <div className="pt-3 pb-3 border-t border-neutral-100">
-                      <p className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-400 mb-2.5">Plan</p>
-                      <div className="flex flex-col gap-3">
-                        {summary.plans.map(({ product, qty, variantId }) => (
-                          <ReviewItem
-                            key={`${product.id}::${variantId}`}
-                            product={product}
-                            qty={qty}
-                            variantId={variantId}
-                            isPlan
                             onQtyChange={handleQuantityChange}
                           />
                         ))}
@@ -481,9 +441,9 @@ function App() {
                   ) : null}
 
                   {summary.sensors.length > 0 ? (
-                    <div className="pt-3 pb-3 border-t border-neutral-100">
-                      <p className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-400 mb-2.5">Sensors</p>
-                      <div className="flex flex-col gap-3">
+                    <div className="pt-4 pb-3 border-b border-[#CED6DE]">
+                      <p className="text-xs uppercase text-[#A8B2BD] leading-4 pb-1">Sensors</p>
+                      <div className="flex flex-col gap-4">
                         {summary.sensors.map(({ product, qty, variantId }) => (
                           <ReviewItem
                             key={`${product.id}::${variantId}`}
@@ -499,9 +459,9 @@ function App() {
                   ) : null}
 
                   {summary.accessories.length > 0 ? (
-                    <div className="pt-3 pb-3 border-t border-neutral-100">
-                      <p className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-400 mb-2.5">Accessories</p>
-                      <div className="flex flex-col gap-3">
+                    <div className="pt-4 pb-3 border-b border-[#CED6DE]">
+                      <p className="text-xs uppercase text-[#A8B2BD] leading-4 pb-1">Accessories</p>
+                      <div className="flex flex-col gap-4">
                         {summary.accessories.map(({ product, qty, variantId }) => (
                           <ReviewItem
                             key={`${product.id}::${variantId}`}
@@ -514,67 +474,87 @@ function App() {
                       </div>
                     </div>
                   ) : null}
+
+                  {summary.plans.length > 0 ? (
+                    <div className="pt-4 pb-3 border-b border-[#CED6DE]">
+                      <p className="text-xs uppercase text-[#A8B2BD] leading-4 pb-1">Plan</p>
+                      <div className="flex flex-col gap-4">
+                        {summary.plans.map(({ product, qty, variantId }) => (
+                          <ReviewItem
+                            key={`${product.id}::${variantId}`}
+                            product={product}
+                            qty={qty}
+                            variantId={variantId}
+                            isPlan
+                            onQtyChange={handleQuantityChange}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               )}
             </div>
 
             {/* Totals + CTA */}
-            <div className="px-5 pb-5 pt-4 border-t border-neutral-100 flex flex-col gap-3">
+            <div className="flex flex-col gap-4 pt-4">
 
               {/* Shipping */}
-              <div className="flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2">
-                  <span className="size-7 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center shrink-0">
-                    <Truck className="size-3.5" />
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="size-10 bg-white rounded-[5px] flex items-center justify-center shrink-0 shadow-sm">
+                    <img src={fastShippingIcon} alt="Fast Shipping" className="size-8 object-contain" />
                   </span>
-                  <span className="font-semibold text-neutral-700">Fast Shipping</span>
+                  <span className="text-sm leading-4 text-[#0B0D10]">Fast Shipping</span>
                 </div>
-                <div className="text-right">
-                  <span className="text-[10px] text-neutral-400 line-through font-normal mr-1">$5.99</span>
-                  <span className="font-extrabold text-emerald-600">FREE</span>
+                <div className="flex flex-col justify-center items-end leading-none">
+                  <span className="text-sm text-[#575757] line-through leading-4">$5.99</span>
+                  <span className="text-sm text-[#4E2FD2] leading-4 font-bold">FREE</span>
                 </div>
               </div>
 
               {/* Seal + price block */}
-              <div className="flex items-center justify-between gap-3 pt-2 border-t border-dashed border-neutral-100">
-                <ScallopSeal />
+              <div className="flex items-center justify-between gap-3 pt-6 mt-2">
+                <img src={satisfactionBadge} alt="100% Satisfaction Guarantee" className="size-[78px] shrink-0 object-contain" />
                 <div className="flex flex-col items-end text-right">
                   {summary.hasItems ? (
-                    <span className="bg-[#7C3AED] text-white px-2 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wide tabular-nums">
+                    <span className="bg-[#4E2FD2] text-white px-2 py-0.5 rounded text-sm mb-2">
                       as low as ${summary.financingPrice}/mo
                     </span>
                   ) : null}
-                  {summary.totalSavings > 0.01 ? (
-                    <span className="text-neutral-400 line-through text-[13px] font-bold mt-1 tabular-nums">
-                      ${summary.finalTotalCompare.toFixed(2)}
+                  <div className="flex items-center gap-2">
+                    {summary.totalSavings > 0.01 ? (
+                      <span className="text-[#6F7882] line-through text-lg leading-5 tabular-nums">
+                        ${summary.finalTotalCompare.toFixed(2)}
+                      </span>
+                    ) : null}
+                    <span className="text-[34px] font-bold text-[#4E2FD2] leading-none tabular-nums tracking-tight">
+                      ${summary.finalTotalActive.toFixed(2)}
                     </span>
-                  ) : null}
-                  <span className="text-[28px] font-black text-[#7C3AED] leading-none mt-0.5 tabular-nums">
-                    ${summary.finalTotalActive.toFixed(2)}
-                  </span>
+                  </div>
                 </div>
               </div>
 
-              {/* Savings pill */}
+              {/* Savings message */}
               {summary.totalSavings > 0.01 ? (
-                <div className="text-center text-[12px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 rounded-xl py-2 px-3">
-                  🎉 You're saving ${summary.totalSavings.toFixed(2)} on your bundle!
+                <div className="text-center text-xs leading-4 text-[#0AA288] ">
+                  Congrats! You're saving ${summary.totalSavings.toFixed(2)} on your security bundle!
                 </div>
               ) : null}
 
               {/* Checkout */}
-              <button
+              <Button
                 onClick={handleCheckout}
                 disabled={!summary.hasItems}
-                className="w-full mt-1 bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-40 text-white font-extrabold py-3.5 rounded-xl text-[14px] tracking-wide transition-colors duration-150 cursor-pointer active:scale-[0.98] shadow-sm"
+                className="w-full bg-[#4E2FD2] hover:bg-[#4E2FD2]/80 disabled:opacity-40 text-white h-12 rounded text-lg font-bold leading-4 transition-colors duration-150 cursor-pointer active:scale-[0.98] shadow-sm"
               >
-                Checkout — ${summary.finalTotalActive.toFixed(2)}
-              </button>
+                Checkout
+              </Button>
 
               {/* Save link */}
               <button
                 onClick={handleSaveConfiguration}
-                className="self-center text-[11.5px] text-neutral-400 hover:text-neutral-600 font-medium underline underline-offset-2 transition-colors cursor-pointer"
+                className="self-center text-sm text-[#484848] hover:text-[#1F1F1F] italic underline underline-offset-2 transition-colors cursor-pointer mt-1"
               >
                 Save my system for later
               </button>

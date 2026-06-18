@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Minus, Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import productImg from "@/assets/images/products/product-2.png"
 
 export interface ProductVariant {
@@ -55,26 +56,24 @@ export function ProductCard({
   return (
     <div
       className={cn(
-        "relative flex flex-col p-4 rounded-2xl transition-all duration-200 w-full text-left bg-white",
+        "relative flex flex-row p-3 gap-4 rounded-[10px] transition-all duration-200 w-full text-left bg-white",
         isSelected
-          ? "border-2 border-[#7C3AED] shadow-[0_2px_16px_rgba(124,58,237,0.12)]"
+          ? "border-2 border-[#4E2FD2B2] shadow-sm"
           : "border border-neutral-200 hover:border-neutral-300 hover:shadow-sm",
         className
       )}
     >
       {/* Discount Badge */}
       {product.discountBadge ? (
-        <div className="self-start mb-3">
-          <span className="inline-flex items-center px-2 py-0.5 bg-[#7C3AED] text-[10px] font-extrabold text-white rounded-md tracking-wider uppercase leading-none shadow-sm">
+        <div className="absolute left-4 top-2.5 z-10">
+          <span className="inline-flex items-center px-[6px] py-[2px] bg-[#4E2FD2] text-xs text-white rounded-[10px] tracking-wide shadow-sm">
             {product.discountBadge}
           </span>
         </div>
-      ) : (
-        <div className="h-5 mb-3" />
-      )}
+      ) : null}
 
       {/* Image */}
-      <div className="flex items-center justify-center h-[110px] w-full mb-4 bg-neutral-50 rounded-xl">
+      <div className="flex shrink-0 items-center justify-center w-[100px] bg-white">
         <img
           src={productImg}
           alt={product.title}
@@ -84,14 +83,14 @@ export function ProductCard({
       </div>
 
       {/* Content */}
-      <div className="flex flex-col flex-1 gap-1">
+      <div className="flex flex-col flex-1 min-w-0">
         {/* Title */}
-        <h3 className="text-[15px] font-bold text-neutral-900 leading-tight tracking-tight">
+        <h3 className="text-[16px] font-normal text-[#1F1F1F] leading-snug tracking-tight">
           {product.title}
         </h3>
 
         {/* Description */}
-        <p className="text-[12px] text-neutral-500 leading-relaxed line-clamp-2">
+        <p className="text-sm text-[#1F1F1FBF] leading-relaxed mt-1 line-clamp-2">
           {product.description}
         </p>
 
@@ -100,14 +99,14 @@ export function ProductCard({
           href={product.learnMoreUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[12px] text-[#7C3AED] hover:text-[#6D28D9] font-semibold mt-0.5 inline-block transition-colors"
+          className="text-sm text-blue-600 hover:text-blue-700 underline underline-offset-2 font-medium inline-block transition-colors"
         >
-          Learn More →
+          Learn More
         </a>
 
         {/* Color / Variant Selector */}
         {product.variants && product.variants.length > 0 ? (
-          <div className="flex flex-wrap gap-1.5 mt-2">
+          <div className="flex flex-wrap gap-2 mt-3">
             {product.variants.map((variant) => {
               const isActive = variant.id === activeVariantId
               return (
@@ -116,20 +115,18 @@ export function ProductCard({
                   onClick={() => onVariantChange(variant.id)}
                   title={variant.name}
                   className={cn(
-                    "flex items-center gap-1.5 px-2 py-1 rounded-lg text-[11px] font-semibold transition-all duration-150 cursor-pointer border select-none",
+                    "flex items-center gap-1 px-1 py-px rounded-[2px] text-[10px] transition-all duration-150 cursor-pointer border select-none",
                     isActive
-                      ? "border-[#7C3AED] bg-[#7C3AED]/5 text-[#7C3AED]"
-                      : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300"
+                      ? "border-[#0AA288] bg-[#1DF0BB0A] text-[#1F1F1F]"
+                      : "border-[#E5E7EB] bg-[#FFFFFF] text-[#1F1F1F] hover:border-[#C7C7C8]"
                   )}
+                  aria-selected={isActive}
                 >
-                  <span
-                    style={{ backgroundColor: variant.colorValue }}
-                    className={cn(
-                      "size-3 rounded-full shrink-0 border",
-                      variant.colorValue.toUpperCase() === "#FFFFFF"
-                        ? "border-neutral-300"
-                        : "border-transparent"
-                    )}
+                  <img
+                    src={productImg}
+                    alt={variant.name}
+                    className="w-7 h-7 object-contain"
+                    style={{ filter: variant.imageFilter !== 'none' ? variant.imageFilter : undefined }}
                   />
                   {variant.name}
                 </button>
@@ -137,44 +134,46 @@ export function ProductCard({
             })}
           </div>
         ) : null}
-      </div>
 
-      {/* Bottom: Stepper + Price */}
-      <div className="flex items-center justify-between gap-3 mt-4 pt-3.5 border-t border-neutral-100">
-        {/* Quantity Stepper */}
-        <div className="flex items-center bg-neutral-100 border border-neutral-200 rounded-lg p-0.5 gap-0.5">
-          <button
-            onClick={() => onQuantityChange(activeVariantId || "default", Math.max(0, quantity - 1))}
-            disabled={quantity === 0}
-            className="size-7 flex items-center justify-center bg-white border border-neutral-200 text-neutral-500 hover:text-neutral-800 disabled:opacity-35 rounded-md transition-all cursor-pointer hover:bg-neutral-50 active:scale-95"
-            aria-label="Decrease quantity"
-          >
-            <Minus className="size-3 stroke-[3px]" />
-          </button>
+        {/* Bottom: Stepper + Price */}
+        <div className="flex items-end justify-between gap-3 mt-4">
+          {/* Quantity Stepper */}
+          <div className="flex items-center gap-1.5">
+            <Button
+              variant="outline"
+              onClick={() => onQuantityChange(activeVariantId || "default", Math.max(0, quantity - 1))}
+              disabled={quantity === 0}
+              className="size-5 p-0 flex items-center justify-center bg-white border-2 border-[#E6EBF0] text-neutral-400 hover:text-neutral-600 disabled:opacity-35 rounded-sm transition-all cursor-pointer hover:bg-neutral-50 active:scale-95 shadow-none"
+              aria-label="Decrease quantity"
+            >
+              <Minus className="size-2 stroke-[3px]" />
+            </Button>
 
-          <span className="w-6 text-center font-bold text-neutral-900 text-[13px] tabular-nums select-none">
-            {quantity}
-          </span>
-
-          <button
-            onClick={() => onQuantityChange(activeVariantId || "default", quantity + 1)}
-            className="size-7 flex items-center justify-center bg-white border border-neutral-200 text-neutral-500 hover:text-neutral-800 rounded-md transition-all cursor-pointer hover:bg-neutral-50 active:scale-95"
-            aria-label="Increase quantity"
-          >
-            <Plus className="size-3 stroke-[3px]" />
-          </button>
-        </div>
-
-        {/* Pricing */}
-        <div className="flex flex-col items-end leading-none">
-          {product.compareAtPrice ? (
-            <span className="text-[11px] text-neutral-400 line-through font-medium mb-0.5 tabular-nums">
-              ${product.compareAtPrice.toFixed(2)}{product.unit ?? ""}
+            <span className="w-5 text-center text-[#0B0D10] text-sm tabular-nums leading-4 select-none">
+              {quantity}
             </span>
-          ) : null}
-          <span className="text-[17px] font-extrabold text-neutral-900 tabular-nums">
-            ${product.price.toFixed(2)}{product.unit ?? ""}
-          </span>
+
+            <Button
+              variant="outline"
+              onClick={() => onQuantityChange(activeVariantId || "default", quantity + 1)}
+              className="size-5 p-0 flex items-center justify-center bg-white border-2 border-[#E6EBF0] text-neutral-600 hover:text-neutral-800 rounded-sm transition-all cursor-pointer hover:bg-neutral-200 active:scale-95 shadow-none"
+              aria-label="Increase quantity"
+            >
+              <Plus className="size-2 stroke-[3px]" />
+            </Button>
+          </div>
+
+          {/* Pricing */}
+          <div className="flex flex-col items-end leading-none">
+            {product.compareAtPrice ? (
+              <span className="text-[16px] text-[#D8392B] line-through mb-1.5 tabular-nums decoration-[#D8392B]">
+                ${product.compareAtPrice.toFixed(2)}{product.unit ?? ""}
+              </span>
+            ) : null}
+            <span className="text-[16px] text-[#575757] tabular-nums">
+              ${product.price.toFixed(2)}{product.unit ?? ""}
+            </span>
+          </div>
         </div>
       </div>
     </div>
