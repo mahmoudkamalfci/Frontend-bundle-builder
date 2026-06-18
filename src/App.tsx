@@ -74,7 +74,7 @@ const ScallopSeal = () => {
 
 /** Step icon renderer */
 function StepIcon({ iconName, active }: { iconName: string; active: boolean }) {
-  const cls = cn('size-5 shrink-0 transition-all duration-200', active ? 'opacity-100 scale-105' : 'opacity-60 grayscale hover:opacity-80')
+  const cls = cn('size-6 shrink-0 transition-all duration-200', active ? 'opacity-100 scale-105' : 'grayscale hover:opacity-80')
   let src = securityIcon
   switch (iconName) {
     case 'camera':
@@ -351,14 +351,14 @@ function App() {
                       : ''
                   )}
                 >
-                  <AccordionTrigger className="w-full flex flex-col gap-3">
+                  <AccordionTrigger className="w-full flex flex-col gap-3 [&_svg]:absolute [&_svg]:right-4 [&_svg]:bottom-[20px]">
                     <div className="flex flex-col w-full gap-1">
                       <span className="text-[#484848] text-xs font-normal uppercase tracking-widest leading-none px-4">
                         Step {step.number} of 4
                       </span>
                       <hr className="flex-1 border-t border-neutral-200" />
                     </div>
-                    <div className="flex items-center justify-between w-full px-4">
+                    <div className="flex items-center justify-between w-full pl-4 pr-10">
                       <div className="flex items-center gap-3">
                         <div className="flex items-center gap-2.5">
                           <StepIcon iconName={step.icon} active={isOpen} />
