@@ -345,7 +345,7 @@ function App() {
                   key={step.id}
                   value={`step-${stepIdx}`}
                   className={cn(
-                    'bg-white pt-4 not-last:border-b-0',
+                    'bg-white not-last:border-b-0',
                     isOpen
                       ? 'bg-[#EDF4FF] rounded-[10px]'
                       : ''
@@ -370,7 +370,7 @@ function App() {
                         </div>
                       </div>
                       {selectedCount > 0 ? (
-                        <span className="text-[11px] font-bold text-[#7C3AED] bg-[#7C3AED]/10 px-2.5 py-1 rounded-full">
+                        <span className="text-sm font-normal text-[#4E2FD2]">
                           {selectedCount} selected
                         </span>
                       ) : null}
