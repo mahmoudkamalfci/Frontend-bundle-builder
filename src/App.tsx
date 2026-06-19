@@ -4,14 +4,6 @@ import { BundleSteps } from './components/BundleSteps'
 import { ReviewPanel } from './components/ReviewPanel'
 import './App.css'
 
-// ─── Seed Data ────────────────────────────────────────────────────────────────
-
-// Imported from ./data/seed
-
-
-
-// ─── Module-Level Sub-Components ──────────────────────────────────────────────
-
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 function App() {
