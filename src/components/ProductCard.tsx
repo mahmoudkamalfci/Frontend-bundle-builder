@@ -34,7 +34,7 @@ interface ProductCardProps {
 }
 
 const variantSelectorVariants = cva(
-  "flex items-center gap-1 rounded-[2px] border px-1 py-px text-[10px] select-none transition-all duration-150 cursor-pointer",
+  "flex items-center gap-1 rounded-[2px] border px-1 py-px text-[10px] font-medium select-none transition-all duration-150 cursor-pointer",
   {
     variants: {
       isActive: {
@@ -82,7 +82,7 @@ export function ProductCard({
       {/* Discount Badge */}
       {product.discountBadge ? (
         <div className="absolute left-4 top-2.5 z-10">
-          <span className="inline-flex items-center rounded-[10px] bg-primary px-[6px] py-[2px] text-xs tracking-wide text-white shadow-sm">
+          <span className="inline-flex items-center font-semibold rounded-[10px] bg-primary px-[6px] py-[2px] text-xs tracking-wide text-white shadow-sm">
             {product.discountBadge}
           </span>
         </div>
@@ -101,7 +101,7 @@ export function ProductCard({
       {/* Content */}
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Title */}
-        <h3 className="text-[16px] font-normal leading-snug tracking-tight text-foreground/90">
+        <h3 className="text-[16px] font-medium leading-snug tracking-tight text-foreground/90">
           {product.title}
         </h3>
 

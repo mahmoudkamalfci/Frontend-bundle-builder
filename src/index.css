@@ -3,8 +3,35 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
 
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/Gilroy-font/Gilroy-Regular.woff') format('woff'),
+       url('/Gilroy-font/Gilroy-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/Gilroy-font/Gilroy-Medium.woff') format('woff'),
+       url('/Gilroy-font/Gilroy-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('/Gilroy-font/Gilroy-Bold.woff') format('woff'),
+       url('/Gilroy-font/Gilroy-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --sans: 'Geist Variable', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: 'Gilroy', 'Geist Variable', system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font-family: var(--sans);
@@ -43,7 +70,7 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist Variable', sans-serif;
+  --font-sans: 'Gilroy', 'Geist Variable', sans-serif;
   --font-mono: ui-monospace, Consolas, monospace;
 
   --color-background: var(--background);

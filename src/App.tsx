@@ -102,11 +102,11 @@ function ReviewItem({
         )}
         <div className="flex min-w-0 flex-col">
           {isPlan && product.id === 'cam-unlimited-plan' ? (
-            <span className="truncate text-[15px] leading-tight">
+            <span className="truncate text-[15px] font-medium leading-tight">
               <span className="font-bold text-foreground">Cam</span> <span className="font-bold text-primary">Unlimited</span>
             </span>
           ) : (
-            <span className="truncate text-sm leading-4 text-foreground">{product.title}</span>
+            <span className="truncate text-sm font-medium leading-4 text-foreground">{product.title}</span>
           )}
         </div>
       </div>
@@ -318,7 +318,7 @@ function App() {
                         <div className="flex items-center gap-2.5">
                           <StepIcon iconName={step.icon} active={isOpen} />
                           <div className="flex flex-col text-left">
-                            <span className="text-[22px] font-normal leading-tight text-foreground">
+                            <span className="text-[22px] font-medium leading-tight text-foreground">
                               {step.title}
                             </span>
                           </div>
@@ -380,7 +380,7 @@ function App() {
             {/* Panel Header */}
             <div className="mb-3 border-b border-border pb-3">
               <span className="mb-4 inline-block text-xs uppercase leading-none tracking-widest text-muted-foreground">Review</span>
-              <h2 className="text-[22px] leading-tight text-foreground">Your security system</h2>
+              <h2 className="text-[22px] font-medium leading-tight text-foreground">Your security system</h2>
               <p className="mt-2 text-sm leading-relaxed text-foreground/75">Review your personalized protection system designed to keep what matters most safe.</p>
             </div>
 
@@ -514,7 +514,7 @@ function App() {
 
               {/* Savings message */}
               {summary.totalSavings > 0.01 ? (
-                <div className="text-center text-xs leading-4 text-success">
+                <div className="text-center text-xs font-medium leading-4 text-success">
                   Congrats! You're saving ${summary.totalSavings.toFixed(2)} on your security bundle!
                 </div>
               ) : null}
