@@ -2,13 +2,7 @@ import { Minus, Plus } from "lucide-react"
 import { cva } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-
-export interface QuantityStepperProps {
-  quantity: number
-  onChange: (qty: number) => void
-  disabled?: boolean
-  className?: string
-}
+import type { QuantityStepperProps } from "@/types"
 
 const quantityButtonVariants = cva(
   "flex size-5 items-center justify-center rounded-sm border-2 border-neutral-200 bg-white p-0 shadow-none transition-all duration-150 cursor-pointer active:scale-95 disabled:opacity-35",

@@ -6,8 +6,8 @@ import {
   Sparkles
 } from 'lucide-react'
 import { ProductCard } from './components/ProductCard'
-import type { Product } from './components/ProductCard'
 import { QuantityStepper } from './components/QuantityStepper'
+import type { Product, ReviewItemProps } from '@/types'
 import { cn } from '@/lib/utils'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/ui/accordion'
 import { Button } from './components/ui/button'
@@ -64,14 +64,6 @@ function StepIcon({ iconName, active }: { iconName: string; active: boolean }) {
 }
 
 /** Review panel list item */
-interface ReviewItemProps {
-  product: Product
-  qty: number
-  variantId: string
-  isHub?: boolean
-  isPlan?: boolean
-  onQtyChange: (productId: string, variantId: string, qty: number) => void
-}
 
 function ReviewItem({
   product,

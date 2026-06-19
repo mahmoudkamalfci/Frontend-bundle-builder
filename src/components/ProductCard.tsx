@@ -3,35 +3,7 @@ import { cva } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 import productImg from "@/assets/images/products/product-2.png"
 import { QuantityStepper } from "./QuantityStepper"
-
-export interface ProductVariant {
-  id: string
-  name: string
-  colorValue: string
-  imageFilter: string
-}
-
-export interface Product {
-  id: string
-  title: string
-  description: string
-  learnMoreUrl: string
-  discountBadge?: string
-  compareAtPrice?: number
-  price: number
-  variants?: ProductVariant[]
-  unit?: string
-}
-
-interface ProductCardProps {
-  product: Product
-  activeVariantId: string
-  quantity: number         // quantity of active variant
-  isSelected: boolean      // true if any variant has quantity > 0
-  onQuantityChange: (variantId: string, qty: number) => void
-  onVariantChange: (variantId: string) => void
-  className?: string
-}
+import type { ProductCardProps } from "@/types"
 
 const variantSelectorVariants = cva(
   "flex items-center gap-1 rounded-[2px] border px-1 py-px text-[10px] font-medium select-none transition-all duration-150 cursor-pointer",
