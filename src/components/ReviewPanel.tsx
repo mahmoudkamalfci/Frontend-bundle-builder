@@ -3,31 +3,7 @@ import { Button } from './ui/button'
 import { ReviewItem } from './ReviewItem'
 import fastShippingIcon from '../assets/images/icons/fast_shipping.png'
 import satisfactionBadge from '../assets/images/icons/satisfaction_badge.png'
-import type { Product } from '@/types'
-
-interface SummaryItem {
-  product: Product
-  qty: number
-  variantId: string
-  variantName?: string
-}
-
-interface ReviewPanelProps {
-  summary: {
-    cameras: SummaryItem[]
-    plans: SummaryItem[]
-    sensors: SummaryItem[]
-    accessories: SummaryItem[]
-    finalTotalActive: number
-    finalTotalCompare: number
-    totalSavings: number
-    financingPrice: string
-    hasItems: boolean
-  }
-  onQtyChange: (productId: string, variantId: string, qty: number) => void
-  onSave: (e: React.MouseEvent) => void
-  onCheckout: () => void
-}
+import type { ReviewPanelProps } from '@/types'
 
 export function ReviewPanel({ summary, onQtyChange, onSave, onCheckout }: ReviewPanelProps) {
   return (

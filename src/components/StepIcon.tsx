@@ -3,11 +3,7 @@ import securityIcon from '../assets/images/icons/security-accordion-icon.png'
 import sensorIcon from '../assets/images/icons/sensor-accordion-icon.png'
 import protectionIcon from '../assets/images/icons/protection-accordion-icon.png'
 import { cn } from '@/lib/utils'
-
-interface StepIconProps {
-  iconName: string
-  active: boolean
-}
+import type { StepIconProps } from '@/types'
 
 export function StepIcon({ iconName, active }: StepIconProps) {
   const cls = cn(

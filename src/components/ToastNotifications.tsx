@@ -1,10 +1,6 @@
 import { Check, Sparkles } from 'lucide-react'
 
-interface ToastNotificationsProps {
-  showSaveSuccess: boolean
-  checkoutSuccess: boolean
-  totalAmount: number
-}
+import type { ToastNotificationsProps } from '@/types'
 
 export function ToastNotifications({
   showSaveSuccess,

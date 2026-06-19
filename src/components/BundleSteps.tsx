@@ -4,18 +4,7 @@ import { ProductCard } from './ProductCard'
 import { StepIcon } from './StepIcon'
 import { cn } from '@/lib/utils'
 import productsData from '../data/products.json'
-import type { Product } from '@/types'
-
-interface BundleStepsProps {
-  expandedStepIndex: number
-  setExpandedStepIndex: (index: number) => void
-  cart: Record<string, number>
-  selectedVariants: Record<string, string>
-  isCardSelected: (product: Product) => boolean
-  getStepSelectedCount: (products: Product[]) => number
-  onQuantityChange: (productId: string, variantId: string, qty: number) => void
-  onVariantChange: (productId: string, variantId: string) => void
-}
+import type { Product, BundleStepsProps } from '@/types'
 
 export function BundleSteps({
   expandedStepIndex,
