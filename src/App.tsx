@@ -13,10 +13,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './
 import { Button } from './components/ui/button'
 import productsData from './data/products.json'
 import productImg from './assets/images/products/product-2.png'
-import cameraIcon from './assets/images/icons/camera-accordion-icon.png'
-import securityIcon from './assets/images/icons/security-accordion-icon.png'
-import sensorIcon from './assets/images/icons/sensor-accordion-icon.png'
-import protectionIcon from './assets/images/icons/protection-accordion-icon.png'
+import { StepIcon } from './components/StepIcon'
 import fastShippingIcon from './assets/images/icons/fast_shipping.png'
 import satisfactionBadge from './assets/images/icons/satisfaction_badge.png'
 import './App.css'
@@ -26,29 +23,9 @@ import './App.css'
 // Imported from ./data/seed
 
 
+
 // ─── Module-Level Sub-Components ──────────────────────────────────────────────
 
-
-/** Step icon renderer */
-function StepIcon({ iconName, active }: { iconName: string; active: boolean }) {
-  const cls = cn('size-6 shrink-0 transition-all duration-200', active ? 'opacity-100 scale-105' : 'grayscale hover:opacity-80')
-  let src = securityIcon
-  switch (iconName) {
-    case 'camera':
-      src = cameraIcon
-      break
-    case 'shield':
-      src = securityIcon
-      break
-    case 'bell':
-      src = sensorIcon
-      break
-    case 'grid':
-      src = protectionIcon
-      break
-  }
-  return <img src={src} className={cls} alt={`${iconName} icon`} />
-}
 
 /** Review panel list item */
 
