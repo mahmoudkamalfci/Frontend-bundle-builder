@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { SEED_CART, SEED_VARIANTS } from './data/seed'
 import {
   Shield,
   ShoppingBag,
@@ -23,21 +24,8 @@ import './App.css'
 
 // ─── Seed Data ────────────────────────────────────────────────────────────────
 
-const SEED_CART: Record<string, number> = {
-  'wyze-cam-v4::white': 1,
-  'wyze-cam-pan-v3::white': 2,
-  'wyze-sense-motion-sensor::default': 2,
-  'wyze-sense-hub::default': 1,
-  'wyze-microsd-card-256gb::default': 2,
-  'cam-unlimited-plan::default': 1,
-}
+// Imported from ./data/seed
 
-const SEED_VARIANTS: Record<string, string> = {
-  'wyze-cam-v4': 'white',
-  'wyze-cam-pan-v3': 'white',
-  'wyze-cam-floodlight-v2': 'white',
-  'wyze-battery-cam-pro': 'white',
-}
 
 // ─── Module-Level Sub-Components ──────────────────────────────────────────────
 
