@@ -1,9 +1,8 @@
 import * as React from "react"
-import { Minus, Plus } from "lucide-react"
 import { cva } from "class-variance-authority"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import productImg from "@/assets/images/products/product-2.png"
+import { QuantityStepper } from "./QuantityStepper"
 
 export interface ProductVariant {
   id: string
@@ -49,17 +48,6 @@ const variantSelectorVariants = cva(
   }
 )
 
-const quantityButtonVariants = cva(
-  "flex size-5 items-center justify-center rounded-sm border-2 border-neutral-200 bg-white p-0 shadow-none transition-all duration-150 cursor-pointer active:scale-95 disabled:opacity-35",
-  {
-    variants: {
-      action: {
-        decrease: "text-neutral-400 hover:bg-neutral-50 hover:text-neutral-600",
-        increase: "text-neutral-600 hover:bg-neutral-200 hover:text-neutral-800",
-      },
-    },
-  }
-)
 
 export function ProductCard({
   product,
@@ -161,30 +149,10 @@ export function ProductCard({
         {/* Bottom: Stepper + Price */}
         <div className="mt-4 flex items-end justify-between gap-3">
           {/* Quantity Stepper */}
-          <div className="flex items-center gap-1.5">
-            <Button
-              variant="outline"
-              onClick={() => onQuantityChange(activeVariantId || "default", Math.max(0, quantity - 1))}
-              disabled={quantity === 0}
-              className={quantityButtonVariants({ action: "decrease" })}
-              aria-label="Decrease quantity"
-            >
-              <Minus className="size-2 stroke-[3px]" />
-            </Button>
-
-            <span className="w-5 select-none text-center text-sm leading-4 tabular-nums text-foreground">
-              {quantity}
-            </span>
-
-            <Button
-              variant="outline"
-              onClick={() => onQuantityChange(activeVariantId || "default", quantity + 1)}
-              className={quantityButtonVariants({ action: "increase" })}
-              aria-label="Increase quantity"
-            >
-              <Plus className="size-2 stroke-[3px]" />
-            </Button>
-          </div>
+          <QuantityStepper
+            quantity={quantity}
+            onChange={(qty) => onQuantityChange(activeVariantId || "default", qty)}
+          />
 
           {/* Pricing */}
           <div className="flex flex-col items-end leading-none">

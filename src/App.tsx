@@ -3,12 +3,11 @@ import {
   Shield,
   ShoppingBag,
   Check,
-  Plus,
-  Minus,
   Sparkles
 } from 'lucide-react'
 import { ProductCard } from './components/ProductCard'
 import type { Product } from './components/ProductCard'
+import { QuantityStepper } from './components/QuantityStepper'
 import { cn } from '@/lib/utils'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './components/ui/accordion'
 import { Button } from './components/ui/button'
@@ -114,27 +113,12 @@ function ReviewItem({
 
       {/* Stepper */}
       {!isPlan && (
-        <div className="flex shrink-0 items-center gap-1.5">
-          <Button
-            variant="outline"
-            disabled={isHub}
-            onClick={() => onQtyChange(product.id, variantId, qty - 1)}
-            className="flex size-5 cursor-pointer items-center justify-center rounded-sm border-2 border-border bg-white p-0 text-neutral-400 shadow-none transition-all hover:bg-neutral-50 hover:text-neutral-600 active:scale-95 disabled:opacity-35"
-            aria-label="Decrease quantity"
-          >
-            <Minus className="size-2 stroke-[3px]" />
-          </Button>
-          <span className="w-5 select-none text-center text-sm leading-4 tabular-nums text-foreground">{qty}</span>
-          <Button
-            variant="outline"
-            disabled={isHub}
-            onClick={() => onQtyChange(product.id, variantId, qty + 1)}
-            className="flex size-5 cursor-pointer items-center justify-center rounded-sm border-2 border-border bg-white p-0 text-neutral-600 shadow-none transition-all hover:bg-neutral-200 hover:text-neutral-800 active:scale-95 disabled:opacity-35"
-            aria-label="Increase quantity"
-          >
-            <Plus className="size-2 stroke-[3px]" />
-          </Button>
-        </div>
+        <QuantityStepper
+          quantity={qty}
+          onChange={(newQty) => onQtyChange(product.id, variantId, newQty)}
+          disabled={isHub}
+          className="shrink-0"
+        />
       )}
 
       {/* Price */}
