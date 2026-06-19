@@ -7,113 +7,116 @@ import type { ReviewPanelProps } from '@/types'
 
 export function ReviewPanel({ summary, onQtyChange, onSave, onCheckout }: ReviewPanelProps) {
   return (
-    <div className="sticky top-6 lg:col-span-4">
-      <div className="flex flex-col overflow-hidden rounded-[10px] bg-accent p-6">
-        {/* Panel Header */}
-        <div className="mb-3 border-b border-border pb-3">
-          <span className="mb-4 inline-block text-xs uppercase leading-none tracking-widest text-muted-foreground">
-            Review
-          </span>
-          <h2 className="text-[22px] font-medium leading-tight text-foreground">
-            Your security system
-          </h2>
-          <p className="mt-2 text-sm leading-relaxed text-foreground/75">
-            Review your personalized protection system designed to keep what matters most safe.
-          </p>
-        </div>
+    <div className="lg:sticky lg:top-6 lg:col-span-4">
+      <div className="flex flex-col overflow-hidden rounded-[10px] bg-accent p-4 sm:p-6 md:flex-row md:gap-6 lg:flex-col lg:gap-0 lg:p-6">
+        {/* Left Side: Header + Items List */}
+        <div className="flex flex-col md:flex-1 lg:w-full">
+          {/* Panel Header */}
+          <div className="mb-3 border-b border-border pb-3">
+            <span className="mb-4 inline-block text-xs uppercase leading-none tracking-widest text-muted-foreground">
+              Review
+            </span>
+            <h2 className="text-lg font-medium leading-tight text-foreground sm:text-[22px]">
+              Your security system
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-foreground/75">
+              Review your personalized protection system designed to keep what matters most safe.
+            </p>
+          </div>
 
-        {/* Scrollable item list */}
-        <div className="flex flex-1 flex-col">
-          {!summary.hasItems ? (
-            <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
-              <div className="rounded-2xl bg-white p-4 text-neutral-300">
-                <ShoppingBag className="size-6 text-muted-foreground" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">Your system is empty</p>
-                <p className="mx-auto mt-1 max-w-[200px] text-xs leading-relaxed text-foreground/75">
-                  Select products from the steps on the left to start building.
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="flex max-h-[350px] flex-col overflow-y-auto">
-              {summary.cameras.length > 0 ? (
-                <div className="border-b border-border pb-3 ">
-                  <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">Cameras</p>
-                  <div className="flex flex-col gap-4">
-                    {summary.cameras.map(({ product, qty, variantId }) => (
-                      <ReviewItem
-                        key={`${product.id}::${variantId}`}
-                        product={product}
-                        qty={qty}
-                        variantId={variantId}
-                        onQtyChange={onQtyChange}
-                      />
-                    ))}
-                  </div>
+          {/* Scrollable item list */}
+          <div className="flex flex-1 flex-col">
+            {!summary.hasItems ? (
+              <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
+                <div className="rounded-2xl bg-white p-4 text-neutral-300">
+                  <ShoppingBag className="size-6 text-muted-foreground" />
                 </div>
-              ) : null}
-
-              {summary.sensors.length > 0 ? (
-                <div className="border-b border-border pb-3 pt-4">
-                  <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">Sensors</p>
-                  <div className="flex flex-col gap-4">
-                    {summary.sensors.map(({ product, qty, variantId }) => (
-                      <ReviewItem
-                        key={`${product.id}::${variantId}`}
-                        product={product}
-                        qty={qty}
-                        variantId={variantId}
-                        onQtyChange={onQtyChange}
-                      />
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-
-              {summary.accessories.length > 0 ? (
-                <div className="border-b border-border pb-3 pt-4">
-                  <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">
-                    Accessories
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Your system is empty</p>
+                  <p className="mx-auto mt-1 max-w-[200px] text-xs leading-relaxed text-foreground/75">
+                    Select products from the steps on the left to start building.
                   </p>
-                  <div className="flex flex-col gap-4">
-                    {summary.accessories.map(({ product, qty, variantId }) => (
-                      <ReviewItem
-                        key={`${product.id}::${variantId}`}
-                        product={product}
-                        qty={qty}
-                        variantId={variantId}
-                        onQtyChange={onQtyChange}
-                      />
-                    ))}
-                  </div>
                 </div>
-              ) : null}
+              </div>
+            ) : (
+              <div className="flex flex-col overflow-y-auto lg:max-h-[350px]">
+                {summary.cameras.length > 0 ? (
+                  <div className="border-b border-border pb-3">
+                    <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">Cameras</p>
+                    <div className="flex flex-col gap-4">
+                      {summary.cameras.map(({ product, qty, variantId }) => (
+                        <ReviewItem
+                          key={`${product.id}::${variantId}`}
+                          product={product}
+                          qty={qty}
+                          variantId={variantId}
+                          onQtyChange={onQtyChange}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
 
-              {summary.plans.length > 0 ? (
-                <div className="border-b border-border pb-3 pt-4">
-                  <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">Plan</p>
-                  <div className="flex flex-col gap-4">
-                    {summary.plans.map(({ product, qty, variantId }) => (
-                      <ReviewItem
-                        key={`${product.id}::${variantId}`}
-                        product={product}
-                        qty={qty}
-                        variantId={variantId}
-                        isPlan
-                        onQtyChange={onQtyChange}
-                      />
-                    ))}
+                {summary.sensors.length > 0 ? (
+                  <div className="border-b border-border pb-3 pt-4">
+                    <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">Sensors</p>
+                    <div className="flex flex-col gap-4">
+                      {summary.sensors.map(({ product, qty, variantId }) => (
+                        <ReviewItem
+                          key={`${product.id}::${variantId}`}
+                          product={product}
+                          qty={qty}
+                          variantId={variantId}
+                          onQtyChange={onQtyChange}
+                        />
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ) : null}
-            </div>
-          )}
+                ) : null}
+
+                {summary.accessories.length > 0 ? (
+                  <div className="border-b border-border pb-3 pt-4">
+                    <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">
+                      Accessories
+                    </p>
+                    <div className="flex flex-col gap-4">
+                      {summary.accessories.map(({ product, qty, variantId }) => (
+                        <ReviewItem
+                          key={`${product.id}::${variantId}`}
+                          product={product}
+                          qty={qty}
+                          variantId={variantId}
+                          onQtyChange={onQtyChange}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+
+                {summary.plans.length > 0 ? (
+                  <div className="border-b border-border pb-3 pt-4">
+                    <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">Plan</p>
+                    <div className="flex flex-col gap-4">
+                      {summary.plans.map(({ product, qty, variantId }) => (
+                        <ReviewItem
+                          key={`${product.id}::${variantId}`}
+                          product={product}
+                          qty={qty}
+                          variantId={variantId}
+                          isPlan
+                          onQtyChange={onQtyChange}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Totals + CTA */}
-        <div className="flex flex-col gap-4 pt-4">
+        {/* Right Side: Totals + CTA */}
+        <div className="flex flex-col gap-4 pt-4 md:w-[260px] md:shrink-0 md:pt-0 lg:w-full lg:pt-4">
           {/* Shipping */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -147,7 +150,7 @@ export function ReviewPanel({ summary, onQtyChange, onSave, onCheckout }: Review
                     ${summary.finalTotalCompare.toFixed(2)}
                   </span>
                 ) : null}
-                <span className="text-[34px] font-bold leading-none tracking-tight tabular-nums text-primary">
+                <span className="text-2xl font-bold leading-none tracking-tight tabular-nums text-primary md:text-[34px]">
                   ${summary.finalTotalActive.toFixed(2)}
                 </span>
               </div>
