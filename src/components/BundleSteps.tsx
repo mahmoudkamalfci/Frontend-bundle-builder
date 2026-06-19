@@ -51,7 +51,7 @@ export function BundleSteps({
                     <div className="flex items-center gap-2.5">
                       <StepIcon iconName={step.icon} active={isOpen} />
                       <div className="flex flex-col text-left">
-                        <span className="text-[22px] font-medium leading-tight text-foreground">
+                        <span className="text-lg font-medium leading-tight text-foreground sm:text-[22px]">
                           {step.title}
                         </span>
                       </div>
@@ -67,13 +67,12 @@ export function BundleSteps({
 
               <AccordionContent className="flex flex-col gap-4 border-t border-neutral-100 bg-accent px-5 pb-5 pt-4">
                 {/* Product Cards */}
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {(step.products as unknown as Product[]).map((product, idx, arr) => {
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-2">
+                  {(step.products as unknown as Product[]).map((product) => {
                     const activeVarId =
                       selectedVariants[product.id] || product.variants?.[0]?.id || 'default'
                     const variantQty = cart[`${product.id}::${activeVarId}`] || 0
                     const isSelected = isCardSelected(product)
-                    const isLastAndOdd = arr.length % 2 !== 0 && idx === arr.length - 1
                     return (
                       <ProductCard
                         key={product.id}
@@ -84,9 +83,6 @@ export function BundleSteps({
                         onQuantityChange={(vId, qty) => onQuantityChange(product.id, vId, qty)}
                         onVariantChange={(vId) => onVariantChange(product.id, vId)}
                         maxQuantity={step.id === 'plans' ? 1 : undefined}
-                        className={cn(
-                          isLastAndOdd ? 'sm:col-span-2 sm:w-[calc(50%-8px)] sm:justify-self-center' : ''
-                        )}
                       />
                     )
                   })}
