@@ -4,8 +4,6 @@ import { BundleSteps } from './components/BundleSteps'
 import { ReviewPanel } from './components/ReviewPanel'
 import './App.css'
 
-// ─── App ──────────────────────────────────────────────────────────────────────
-
 function App() {
   const {
     cart,
