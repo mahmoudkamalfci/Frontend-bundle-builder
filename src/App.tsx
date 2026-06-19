@@ -203,14 +203,7 @@ function App() {
       } else {
         next[cartKey] = qty
       }
-      // Auto-add/remove Sense Hub when motion sensor is toggled
-      if (productId === 'wyze-sense-motion-sensor') {
-        if (qty > 0 && !('wyze-sense-hub::default' in next)) {
-          next['wyze-sense-hub::default'] = 1
-        } else if (qty <= 0 && 'wyze-sense-hub::default' in next) {
-          delete next['wyze-sense-hub::default']
-        }
-      }
+
       return next
     })
   }
