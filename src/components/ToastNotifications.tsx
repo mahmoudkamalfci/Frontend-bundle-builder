@@ -10,7 +10,7 @@ export function ToastNotifications({
   if (!showSaveSuccess && !checkoutSuccess) return null
 
   return (
-    <div className="mx-auto mt-4 w-full max-w-[1200px] px-4 sm:px-6">
+    <div className="mx-auto mb-3 w-full max-w-[1200px] px-4 sm:px-6">
       {showSaveSuccess ? (
         <div className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-800 shadow-sm">
           <Check className="size-4 shrink-0 stroke-[3px] text-emerald-500" />

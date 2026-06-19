@@ -24,12 +24,14 @@ export interface ProductCardProps {
   isSelected: boolean      // true if any variant has quantity > 0
   onQuantityChange: (variantId: string, qty: number) => void
   onVariantChange: (variantId: string) => void
+  maxQuantity?: number
   className?: string
 }
 
 export interface QuantityStepperProps {
   quantity: number
   onChange: (qty: number) => void
+  max?: number
   disabled?: boolean
   className?: string
 }
@@ -38,7 +40,6 @@ export interface ReviewItemProps {
   product: Product
   qty: number
   variantId: string
-  isHub?: boolean
   isPlan?: boolean
   onQtyChange: (productId: string, variantId: string, qty: number) => void
 }

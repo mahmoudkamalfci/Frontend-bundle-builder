@@ -28,6 +28,7 @@ export function ProductCard({
   isSelected,
   onQuantityChange,
   onVariantChange,
+  maxQuantity,
   className,
 }: ProductCardProps) {
   // Find active variant
@@ -124,6 +125,7 @@ export function ProductCard({
           <QuantityStepper
             quantity={quantity}
             onChange={(qty) => onQuantityChange(activeVariantId || "default", qty)}
+            max={maxQuantity}
           />
 
           {/* Pricing */}

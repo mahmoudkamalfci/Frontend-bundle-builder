@@ -19,6 +19,7 @@ const quantityButtonVariants = cva(
 export function QuantityStepper({
   quantity,
   onChange,
+  max,
   disabled = false,
   className,
 }: QuantityStepperProps) {
@@ -41,7 +42,7 @@ export function QuantityStepper({
       <Button
         variant="outline"
         onClick={() => onChange(quantity + 1)}
-        disabled={disabled}
+        disabled={disabled || (max !== undefined && quantity >= max)}
         className={quantityButtonVariants({ action: "increase" })}
         aria-label="Increase quantity"
       >

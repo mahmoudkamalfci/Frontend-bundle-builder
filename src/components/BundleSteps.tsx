@@ -83,6 +83,7 @@ export function BundleSteps({
                         isSelected={isSelected}
                         onQuantityChange={(vId, qty) => onQuantityChange(product.id, vId, qty)}
                         onVariantChange={(vId) => onVariantChange(product.id, vId)}
+                        maxQuantity={step.id === 'plans' ? 1 : undefined}
                         className={cn(
                           isLastAndOdd ? 'sm:col-span-2 sm:w-[calc(50%-8px)] sm:justify-self-center' : ''
                         )}

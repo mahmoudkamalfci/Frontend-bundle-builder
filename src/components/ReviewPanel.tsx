@@ -39,7 +39,7 @@ export function ReviewPanel({ summary, onQtyChange, onSave, onCheckout }: Review
           ) : (
             <div className="flex max-h-[350px] flex-col overflow-y-auto">
               {summary.cameras.length > 0 ? (
-                <div className="border-b border-border pb-3">
+                <div className="border-b border-border pb-3 ">
                   <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">Cameras</p>
                   <div className="flex flex-col gap-4">
                     {summary.cameras.map(({ product, qty, variantId }) => (
@@ -65,7 +65,6 @@ export function ReviewPanel({ summary, onQtyChange, onSave, onCheckout }: Review
                         product={product}
                         qty={qty}
                         variantId={variantId}
-                        isHub={product.id === 'wyze-sense-hub'}
                         onQtyChange={onQtyChange}
                       />
                     ))}
