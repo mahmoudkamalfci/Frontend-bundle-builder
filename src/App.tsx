@@ -1,9 +1,8 @@
 import { useBundleCart } from './hooks/useBundleCart'
 import {
-  ShoppingBag,
-  Check,
-  Sparkles
+  ShoppingBag
 } from 'lucide-react'
+import { ToastNotifications } from './components/ToastNotifications'
 import { ProductCard } from './components/ProductCard'
 import type { Product } from '@/types'
 import { cn } from '@/lib/utils'
@@ -47,22 +46,11 @@ function App() {
     <main className="container mx-auto min-h-screen p-4 md:p-6 lg:p-8">
 
       {/* ── Toast Notifications ──────────────────────────────────────── */}
-      {(showSaveSuccess || checkoutSuccess) ? (
-        <div className="mx-auto mt-4 w-full max-w-[1200px] px-4 sm:px-6">
-          {showSaveSuccess ? (
-            <div className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-800 shadow-sm">
-              <Check className="size-4 shrink-0 stroke-[3px] text-emerald-500" />
-              <p className="text-sm"><span className="font-bold">Configuration saved!</span> Your setup will be restored on your next visit.</p>
-            </div>
-          ) : null}
-          {checkoutSuccess ? (
-            <div className="flex items-center gap-3 rounded-xl border border-violet-200 bg-violet-50 px-4 py-3 text-violet-800 shadow-sm">
-              <Sparkles className="size-4 shrink-0 text-brand" />
-              <p className="text-sm"><span className="font-bold">Checkout initiated!</span> Total: <span className="font-bold">${summary.finalTotalActive.toFixed(2)}</span></p>
-            </div>
-          ) : null}
-        </div>
-      ) : null}
+      <ToastNotifications
+        showSaveSuccess={showSaveSuccess}
+        checkoutSuccess={checkoutSuccess}
+        totalAmount={summary.finalTotalActive}
+      />
 
       {/* ── Main Two-Column Layout ───────────────────────────────────── */}
       <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-8">
