@@ -4,7 +4,6 @@ import type { Product } from '@/types'
 import { SEED_CART, SEED_VARIANTS } from '../data/seed'
 
 export function useBundleCart() {
-  const [expandedStepIndex, setExpandedStepIndex] = useState<number>(0)
 
   const [cart, setCart] = useState<Record<string, number>>(() => {
     try {
@@ -106,8 +105,6 @@ export function useBundleCart() {
   return {
     cart,
     selectedVariants,
-    expandedStepIndex,
-    setExpandedStepIndex,
     showSaveSuccess,
     checkoutSuccess,
     summary,

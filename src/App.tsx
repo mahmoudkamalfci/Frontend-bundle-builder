@@ -8,8 +8,6 @@ function App() {
   const {
     cart,
     selectedVariants,
-    expandedStepIndex,
-    setExpandedStepIndex,
     showSaveSuccess,
     checkoutSuccess,
     summary,
@@ -37,8 +35,6 @@ function App() {
         {/* Left Column: Accordion Steps (7/12) */}
 
         <BundleSteps
-          expandedStepIndex={expandedStepIndex}
-          setExpandedStepIndex={setExpandedStepIndex}
           cart={cart}
           selectedVariants={selectedVariants}
           isCardSelected={isCardSelected}
@@ -47,6 +43,7 @@ function App() {
           onVariantChange={handleVariantChange}
         />
 
+        {/* Right Column: Review Panel (5/12) */}
         <ReviewPanel
           summary={summary}
           onQtyChange={handleQuantityChange}

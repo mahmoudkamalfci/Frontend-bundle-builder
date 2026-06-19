@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './ui/accordion'
 import { Button } from './ui/button'
 import { ProductCard } from './ProductCard'
@@ -7,8 +8,6 @@ import productsData from '../data/products.json'
 import type { Product, BundleStepsProps } from '@/types'
 
 export function BundleSteps({
-  expandedStepIndex,
-  setExpandedStepIndex,
   cart,
   selectedVariants,
   isCardSelected,
@@ -16,6 +15,7 @@ export function BundleSteps({
   onQuantityChange,
   onVariantChange,
 }: BundleStepsProps) {
+  const [expandedStepIndex, setExpandedStepIndex] = useState<number>(0)
   return (
     <div className="flex flex-col gap-6 lg:col-span-8">
       <Accordion

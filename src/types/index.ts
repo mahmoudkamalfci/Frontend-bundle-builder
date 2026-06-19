@@ -55,8 +55,6 @@ export interface ToastNotificationsProps {
 }
 
 export interface BundleStepsProps {
-  expandedStepIndex: number
-  setExpandedStepIndex: (index: number) => void
   cart: Record<string, number>
   selectedVariants: Record<string, string>
   isCardSelected: (product: Product) => boolean
