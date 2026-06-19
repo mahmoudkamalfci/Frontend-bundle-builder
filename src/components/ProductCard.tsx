@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Minus, Plus } from "lucide-react"
+import { cva } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import productImg from "@/assets/images/products/product-2.png"
@@ -33,6 +34,33 @@ interface ProductCardProps {
   className?: string
 }
 
+const variantSelectorVariants = cva(
+  "flex items-center gap-1 rounded-[2px] border px-1 py-px text-[10px] select-none transition-all duration-150 cursor-pointer",
+  {
+    variants: {
+      isActive: {
+        true: "border-success bg-success/5 text-foreground",
+        false: "border-neutral-200 bg-white text-foreground hover:border-neutral-300",
+      },
+    },
+    defaultVariants: {
+      isActive: false,
+    },
+  }
+)
+
+const quantityButtonVariants = cva(
+  "flex size-5 items-center justify-center rounded-sm border-2 border-neutral-200 bg-white p-0 shadow-none transition-all duration-150 cursor-pointer active:scale-95 disabled:opacity-35",
+  {
+    variants: {
+      action: {
+        decrease: "text-neutral-400 hover:bg-neutral-50 hover:text-neutral-600",
+        increase: "text-neutral-600 hover:bg-neutral-200 hover:text-neutral-800",
+      },
+    },
+  }
+)
+
 export function ProductCard({
   product,
   activeVariantId,
@@ -56,9 +84,9 @@ export function ProductCard({
   return (
     <div
       className={cn(
-        "relative flex flex-row p-3 gap-4 rounded-[10px] transition-all duration-200 w-full text-left bg-white",
+        "relative flex w-full flex-row gap-4 rounded-[10px] p-3 text-left bg-white transition-all duration-200",
         isSelected
-          ? "border-2 border-[#4E2FD2B2] shadow-sm"
+          ? "border-2 border-primary/70 shadow-sm"
           : "border border-neutral-200 hover:border-neutral-300 hover:shadow-sm",
         className
       )}
@@ -66,14 +94,14 @@ export function ProductCard({
       {/* Discount Badge */}
       {product.discountBadge ? (
         <div className="absolute left-4 top-2.5 z-10">
-          <span className="inline-flex items-center px-[6px] py-[2px] bg-[#4E2FD2] text-xs text-white rounded-[10px] tracking-wide shadow-sm">
+          <span className="inline-flex items-center rounded-[10px] bg-primary px-[6px] py-[2px] text-xs tracking-wide text-white shadow-sm">
             {product.discountBadge}
           </span>
         </div>
       ) : null}
 
       {/* Image */}
-      <div className="flex shrink-0 items-center justify-center w-[100px] bg-white">
+      <div className="flex w-[100px] shrink-0 items-center justify-center bg-white">
         <img
           src={productImg}
           alt={product.title}
@@ -83,14 +111,14 @@ export function ProductCard({
       </div>
 
       {/* Content */}
-      <div className="flex flex-col flex-1 min-w-0">
+      <div className="flex min-w-0 flex-1 flex-col">
         {/* Title */}
-        <h3 className="text-[16px] font-normal text-[#1F1F1F] leading-snug tracking-tight">
+        <h3 className="text-[16px] font-normal leading-snug tracking-tight text-foreground/90">
           {product.title}
         </h3>
 
         {/* Description */}
-        <p className="text-sm text-[#1F1F1FBF] leading-relaxed mt-1 line-clamp-2">
+        <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-foreground/75">
           {product.description}
         </p>
 
@@ -99,14 +127,14 @@ export function ProductCard({
           href={product.learnMoreUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-blue-600 hover:text-blue-700 underline underline-offset-2 font-medium inline-block transition-colors"
+          className="inline-block text-sm font-medium text-blue-600 underline underline-offset-2 transition-colors hover:text-blue-700"
         >
           Learn More
         </a>
 
         {/* Color / Variant Selector */}
         {product.variants && product.variants.length > 0 ? (
-          <div className="flex flex-wrap gap-2 mt-3">
+          <div className="mt-3 flex flex-wrap gap-2">
             {product.variants.map((variant) => {
               const isActive = variant.id === activeVariantId
               return (
@@ -114,18 +142,13 @@ export function ProductCard({
                   key={variant.id}
                   onClick={() => onVariantChange(variant.id)}
                   title={variant.name}
-                  className={cn(
-                    "flex items-center gap-1 px-1 py-px rounded-[2px] text-[10px] transition-all duration-150 cursor-pointer border select-none",
-                    isActive
-                      ? "border-[#0AA288] bg-[#1DF0BB0A] text-[#1F1F1F]"
-                      : "border-[#E5E7EB] bg-[#FFFFFF] text-[#1F1F1F] hover:border-[#C7C7C8]"
-                  )}
+                  className={variantSelectorVariants({ isActive })}
                   aria-selected={isActive}
                 >
                   <img
                     src={productImg}
                     alt={variant.name}
-                    className="w-7 h-7 object-contain"
+                    className="size-7 object-contain"
                     style={{ filter: variant.imageFilter !== 'none' ? variant.imageFilter : undefined }}
                   />
                   {variant.name}
@@ -136,27 +159,27 @@ export function ProductCard({
         ) : null}
 
         {/* Bottom: Stepper + Price */}
-        <div className="flex items-end justify-between gap-3 mt-4">
+        <div className="mt-4 flex items-end justify-between gap-3">
           {/* Quantity Stepper */}
           <div className="flex items-center gap-1.5">
             <Button
               variant="outline"
               onClick={() => onQuantityChange(activeVariantId || "default", Math.max(0, quantity - 1))}
               disabled={quantity === 0}
-              className="size-5 p-0 flex items-center justify-center bg-white border-2 border-[#E6EBF0] text-neutral-400 hover:text-neutral-600 disabled:opacity-35 rounded-sm transition-all cursor-pointer hover:bg-neutral-50 active:scale-95 shadow-none"
+              className={quantityButtonVariants({ action: "decrease" })}
               aria-label="Decrease quantity"
             >
               <Minus className="size-2 stroke-[3px]" />
             </Button>
 
-            <span className="w-5 text-center text-[#0B0D10] text-sm tabular-nums leading-4 select-none">
+            <span className="w-5 select-none text-center text-sm leading-4 tabular-nums text-foreground">
               {quantity}
             </span>
 
             <Button
               variant="outline"
               onClick={() => onQuantityChange(activeVariantId || "default", quantity + 1)}
-              className="size-5 p-0 flex items-center justify-center bg-white border-2 border-[#E6EBF0] text-neutral-600 hover:text-neutral-800 rounded-sm transition-all cursor-pointer hover:bg-neutral-200 active:scale-95 shadow-none"
+              className={quantityButtonVariants({ action: "increase" })}
               aria-label="Increase quantity"
             >
               <Plus className="size-2 stroke-[3px]" />
@@ -166,11 +189,11 @@ export function ProductCard({
           {/* Pricing */}
           <div className="flex flex-col items-end leading-none">
             {product.compareAtPrice ? (
-              <span className="text-[16px] text-[#D8392B] line-through mb-1.5 tabular-nums decoration-[#D8392B]">
+              <span className="mb-1.5 text-[16px] tabular-nums line-through decoration-destructive text-destructive">
                 ${product.compareAtPrice.toFixed(2)}{product.unit ?? ""}
               </span>
             ) : null}
-            <span className="text-[16px] text-[#575757] tabular-nums">
+            <span className="text-[16px] tabular-nums text-muted-foreground">
               ${product.price.toFixed(2)}{product.unit ?? ""}
             </span>
           </div>

@@ -88,6 +88,12 @@
   --color-brand-light: rgba(124, 58, 237, 0.08);
   --color-brand-muted: rgba(124, 58, 237, 0.1);
 
+  /* Bundle Builder semantic tokens */
+  --color-primary: #4E2FD2;
+  --color-success: #0AA288;
+  --color-destructive: #D8392B;
+  --color-accent: #EDF4FF;
+
   /* Animation tokens */
   --animate-fade-in: fade-in 0.25s ease-out;
   --animate-accordion-down: accordion-down 0.2s ease-out;

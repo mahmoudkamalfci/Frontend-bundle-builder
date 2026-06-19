@@ -91,45 +91,45 @@ function ReviewItem({
   return (
     <div className="flex items-center justify-between gap-3">
       {/* Thumbnail + name */}
-      <div className="flex items-center flex-1 min-w-0 gap-3">
+      <div className="flex min-w-0 flex-1 items-center gap-3">
         {isPlan ? (
-          <div className="size-10 shrink-0 bg-transparent flex items-center justify-center">
-            <Shield className="size-6 text-[#4E2FD2]" strokeWidth={1.5} />
+          <div className="flex size-10 shrink-0 items-center justify-center bg-transparent">
+            <Shield className="size-6 text-primary" strokeWidth={1.5} />
           </div>
         ) : (
-          <div className="size-10 shrink-0 bg-white rounded-[5px] flex items-center justify-center p-1 shadow-sm">
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-[5px] bg-white p-1 shadow-sm">
             <img src={productImg} alt={product.title} style={imageStyle} className="max-h-full max-w-full object-contain" />
           </div>
         )}
-        <div className="flex flex-col min-w-0">
+        <div className="flex min-w-0 flex-col">
           {isPlan && product.id === 'cam-unlimited-plan' ? (
-            <span className="text-[15px] leading-tight truncate">
-              <span className="font-bold text-[#1F1F1F]">Cam</span> <span className="font-bold text-[#4E2FD2]">Unlimited</span>
+            <span className="truncate text-[15px] leading-tight">
+              <span className="font-bold text-foreground">Cam</span> <span className="font-bold text-primary">Unlimited</span>
             </span>
           ) : (
-            <span className="text-sm text-[#0B0D10] leading-4 truncate">{product.title}</span>
+            <span className="truncate text-sm leading-4 text-foreground">{product.title}</span>
           )}
         </div>
       </div>
 
       {/* Stepper */}
       {!isPlan && (
-        <div className="flex items-center gap-1.5 shrink-0">
+        <div className="flex shrink-0 items-center gap-1.5">
           <Button
             variant="outline"
             disabled={isHub}
             onClick={() => onQtyChange(product.id, variantId, qty - 1)}
-            className="size-5 p-0 flex items-center justify-center bg-white border-2 border-[#E6EBF0] text-neutral-400 hover:text-neutral-600 disabled:opacity-35 rounded-sm transition-all cursor-pointer hover:bg-neutral-50 active:scale-95 shadow-none"
+            className="flex size-5 cursor-pointer items-center justify-center rounded-sm border-2 border-border bg-white p-0 text-neutral-400 shadow-none transition-all hover:bg-neutral-50 hover:text-neutral-600 active:scale-95 disabled:opacity-35"
             aria-label="Decrease quantity"
           >
             <Minus className="size-2 stroke-[3px]" />
           </Button>
-          <span className="w-5 text-center text-[#0B0D10] text-sm leading-4 tabular-nums select-none">{qty}</span>
+          <span className="w-5 select-none text-center text-sm leading-4 tabular-nums text-foreground">{qty}</span>
           <Button
             variant="outline"
             disabled={isHub}
             onClick={() => onQtyChange(product.id, variantId, qty + 1)}
-            className="size-5 p-0 flex items-center justify-center bg-white border-2 border-[#E6EBF0] text-neutral-600 hover:text-neutral-800 rounded-sm transition-all cursor-pointer hover:bg-neutral-200 active:scale-95 shadow-none"
+            className="flex size-5 cursor-pointer items-center justify-center rounded-sm border-2 border-border bg-white p-0 text-neutral-600 shadow-none transition-all hover:bg-neutral-200 hover:text-neutral-800 active:scale-95 disabled:opacity-35"
             aria-label="Increase quantity"
           >
             <Plus className="size-2 stroke-[3px]" />
@@ -138,29 +138,29 @@ function ReviewItem({
       )}
 
       {/* Price */}
-      <div className="w-[64px] text-right shrink-0 leading-none flex flex-col items-end justify-center">
+      <div className="flex w-[64px] shrink-0 flex-col items-end justify-center leading-none text-right">
         {isHub ? (
           <>
-            <span className="block text-[12px] text-[#575757] line-through mb-0.5">$29.92</span>
-            <span className="font-bold text-[14px] text-[#4E2FD2]">FREE</span>
+            <span className="mb-0.5 block text-[12px] line-through text-muted-foreground">$29.92</span>
+            <span className="text-[14px] font-bold text-primary">FREE</span>
           </>
         ) : isPlan ? (
           <>
             {product.compareAtPrice ? (
-              <span className="block text-[12px] text-[#575757] line-through mb-0.5">
+              <span className="mb-0.5 block text-[12px] line-through text-muted-foreground">
                 ${(product.compareAtPrice * qty).toFixed(2)}/mo
               </span>
             ) : null}
-            <span className="font-semibold text-[14px] text-[#4E2FD2]">${(product.price * qty).toFixed(2)}/mo</span>
+            <span className="text-[14px] font-semibold text-primary">${(product.price * qty).toFixed(2)}/mo</span>
           </>
         ) : (
           <>
             {product.compareAtPrice ? (
-              <span className="block text-sm text-[#6F7882] line-through leading-4 mb-0.5">
+              <span className="mb-0.5 block text-sm leading-4 line-through text-muted-foreground">
                 ${(product.compareAtPrice * qty).toFixed(2)}
               </span>
             ) : null}
-            <span className="font-semibold text-sm text-[#4E2FD2] leading-4">${(product.price * qty).toFixed(2)}</span>
+            <span className="text-sm font-semibold leading-4 text-primary">${(product.price * qty).toFixed(2)}</span>
           </>
         )}
       </div>
@@ -276,16 +276,16 @@ function App() {
 
       {/* ── Toast Notifications ──────────────────────────────────────── */}
       {(showSaveSuccess || checkoutSuccess) ? (
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 w-full mt-4">
+        <div className="mx-auto mt-4 w-full max-w-[1200px] px-4 sm:px-6">
           {showSaveSuccess ? (
-            <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 px-4 py-3 rounded-xl flex items-center gap-3 shadow-sm">
-              <Check className="size-4 text-emerald-500 shrink-0 stroke-[3px]" />
+            <div className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-800 shadow-sm">
+              <Check className="size-4 shrink-0 stroke-[3px] text-emerald-500" />
               <p className="text-sm"><span className="font-bold">Configuration saved!</span> Your setup will be restored on your next visit.</p>
             </div>
           ) : null}
           {checkoutSuccess ? (
-            <div className="bg-violet-50 border border-violet-200 text-violet-800 px-4 py-3 rounded-xl flex items-center gap-3 shadow-sm">
-              <Sparkles className="size-4 text-[#7C3AED] shrink-0" />
+            <div className="flex items-center gap-3 rounded-xl border border-violet-200 bg-violet-50 px-4 py-3 text-violet-800 shadow-sm">
+              <Sparkles className="size-4 shrink-0 text-brand" />
               <p className="text-sm"><span className="font-bold">Checkout initiated!</span> Total: <span className="font-bold">${summary.finalTotalActive.toFixed(2)}</span></p>
             </div>
           ) : null}
@@ -293,11 +293,11 @@ function App() {
       ) : null}
 
       {/* ── Main Two-Column Layout ───────────────────────────────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-8">
 
         {/* Left Column: Accordion Steps (7/12) */}
 
-        <div className="lg:col-span-8 flex flex-col gap-6">
+        <div className="flex flex-col gap-6 lg:col-span-8">
           <Accordion
             type="single"
             collapsible
@@ -318,39 +318,39 @@ function App() {
                   className={cn(
                     'bg-white not-last:border-b-0',
                     isOpen
-                      ? 'bg-[#EDF4FF] rounded-[10px]'
+                      ? 'rounded-[10px] bg-accent'
                       : ''
                   )}
                 >
-                  <AccordionTrigger className="w-full flex flex-col gap-3 [&_svg]:absolute [&_svg]:right-4 [&_svg]:bottom-[20px]">
-                    <div className="flex flex-col w-full gap-1">
-                      <span className="text-[#484848] text-xs font-normal uppercase tracking-widest leading-none px-4">
+                  <AccordionTrigger className="flex w-full flex-col gap-3 [&_svg]:absolute [&_svg]:bottom-[20px] [&_svg]:right-4">
+                    <div className="flex w-full flex-col gap-1">
+                      <span className="px-4 text-xs font-normal uppercase leading-none tracking-widest text-muted-foreground">
                         Step {step.number} of 4
                       </span>
-                      <hr className="flex-1 border-t border-[#1F1F1F]" />
+                      <hr className="flex-1 border-t border-foreground" />
                     </div>
-                    <div className="flex items-center justify-between w-full pl-4 pr-10">
+                    <div className="flex w-full items-center justify-between pl-4 pr-10">
                       <div className="flex items-center gap-3">
                         <div className="flex items-center gap-2.5">
                           <StepIcon iconName={step.icon} active={isOpen} />
                           <div className="flex flex-col text-left">
-                            <span className="text-[#0B0D10] text-[22px] font-normal leading-tight">
+                            <span className="text-[22px] font-normal leading-tight text-foreground">
                               {step.title}
                             </span>
                           </div>
                         </div>
                       </div>
                       {selectedCount > 0 ? (
-                        <span className="text-sm font-normal text-[#4E2FD2]">
+                        <span className="text-sm font-normal text-primary">
                           {selectedCount} selected
                         </span>
                       ) : null}
                     </div>
                   </AccordionTrigger>
 
-                  <AccordionContent className="bg-[#EDF4FF] px-5 pt-4 pb-5 flex flex-col gap-4 border-t border-neutral-100">
+                  <AccordionContent className="flex flex-col gap-4 border-t border-neutral-100 bg-accent px-5 pb-5 pt-4">
                     {/* Product Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       {(step.products as unknown as Product[]).map((product, idx, arr) => {
                         const activeVarId = selectedVariants[product.id] || product.variants?.[0]?.id || 'default'
                         const variantQty = cart[`${product.id}::${activeVarId}`] || 0
@@ -365,7 +365,7 @@ function App() {
                             isSelected={isSelected}
                             onQuantityChange={(vId, qty) => handleQuantityChange(product.id, vId, qty)}
                             onVariantChange={(vId) => handleVariantChange(product.id, vId)}
-                            className={cn(isLastAndOdd ? 'sm:col-span-2 sm:justify-self-center sm:w-[calc(50%-8px)]' : '')}
+                            className={cn(isLastAndOdd ? 'sm:col-span-2 sm:w-[calc(50%-8px)] sm:justify-self-center' : '')}
                           />
                         )
                       })}
@@ -376,7 +376,7 @@ function App() {
                       <Button
                         variant="outline"
                         onClick={() => setExpandedStepIndex(stepIdx + 1)}
-                        className="self-center border-[#4E2FD2] text-lg text-[#4E2FD2] bg-transparent hover:bg-[#4E2FD2]/5 h-10 px-6 rounded-[8px] transition-colors duration-150 cursor-pointer active:scale-[0.97]"
+                        className="h-10 cursor-pointer self-center rounded-[8px] border border-primary bg-transparent px-6 text-lg text-primary transition-colors duration-150 hover:bg-primary/5 active:scale-[0.97]"
                       >
                         Next: {productsData.steps[stepIdx + 1].title}
                       </Button>
@@ -390,35 +390,35 @@ function App() {
         </div>
 
         {/* Right Column: Sticky Review Panel (5/12) */}
-        <div className="lg:col-span-4 sticky top-6">
-          <div className="bg-[#EDF4FF] rounded-[10px] flex flex-col p-6 overflow-hidden">
+        <div className="sticky top-6 lg:col-span-4">
+          <div className="flex flex-col overflow-hidden rounded-[10px] bg-accent p-6">
 
             {/* Panel Header */}
-            <div className="pb-3 mb-3 border-b border-[#CED6DE]">
-              <span className="inline-block text-[#484848] text-xs uppercase tracking-widest leading-none mb-4">Review</span>
-              <h2 className="text-[22px] text-[#1F1F1F] leading-tight">Your security system</h2>
-              <p className="text-sm text-[#1F1F1FBF] mt-2 leading-relaxed">Review your personalized protection system designed to keep what matters most safe.</p>
+            <div className="mb-3 border-b border-border pb-3">
+              <span className="mb-4 inline-block text-xs uppercase leading-none tracking-widest text-muted-foreground">Review</span>
+              <h2 className="text-[22px] leading-tight text-foreground">Your security system</h2>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/75">Review your personalized protection system designed to keep what matters most safe.</p>
             </div>
 
             {/* Scrollable item list */}
-            <div className="flex flex-col flex-1">
+            <div className="flex flex-1 flex-col">
               {!summary.hasItems ? (
-                <div className="py-10 flex flex-col items-center justify-center gap-3 text-center">
-                  <div className="bg-white p-4 rounded-2xl text-neutral-300">
-                    <ShoppingBag className="size-6 text-[#A8B2BD]" />
+                <div className="flex flex-col items-center justify-center gap-3 py-10 text-center">
+                  <div className="rounded-2xl bg-white p-4 text-neutral-300">
+                    <ShoppingBag className="size-6 text-muted-foreground" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-[#1F1F1F]">Your system is empty</p>
-                    <p className="text-xs text-[#1F1F1FBF] mt-1 max-w-[200px] mx-auto leading-relaxed">
+                    <p className="text-sm font-semibold text-foreground">Your system is empty</p>
+                    <p className="mx-auto mt-1 max-w-[200px] text-xs leading-relaxed text-foreground/75">
                       Select products from the steps on the left to start building.
                     </p>
                   </div>
                 </div>
               ) : (
-                <div className="flex flex-col max-h-[350px] overflow-y-auto">
+                <div className="flex max-h-[350px] flex-col overflow-y-auto">
                   {summary.cameras.length > 0 ? (
-                    <div className="pb-3 border-b border-[#CED6DE]">
-                      <p className="text-xs uppercase text-[#A8B2BD] leading-4 pb-1">Cameras</p>
+                    <div className="border-b border-border pb-3">
+                      <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">Cameras</p>
                       <div className="flex flex-col gap-4">
                         {summary.cameras.map(({ product, qty, variantId }) => (
                           <ReviewItem
@@ -434,8 +434,8 @@ function App() {
                   ) : null}
 
                   {summary.sensors.length > 0 ? (
-                    <div className="pt-4 pb-3 border-b border-[#CED6DE]">
-                      <p className="text-xs uppercase text-[#A8B2BD] leading-4 pb-1">Sensors</p>
+                    <div className="border-b border-border pb-3 pt-4">
+                      <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">Sensors</p>
                       <div className="flex flex-col gap-4">
                         {summary.sensors.map(({ product, qty, variantId }) => (
                           <ReviewItem
@@ -452,8 +452,8 @@ function App() {
                   ) : null}
 
                   {summary.accessories.length > 0 ? (
-                    <div className="pt-4 pb-3 border-b border-[#CED6DE]">
-                      <p className="text-xs uppercase text-[#A8B2BD] leading-4 pb-1">Accessories</p>
+                    <div className="border-b border-border pb-3 pt-4">
+                      <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">Accessories</p>
                       <div className="flex flex-col gap-4">
                         {summary.accessories.map(({ product, qty, variantId }) => (
                           <ReviewItem
@@ -469,8 +469,8 @@ function App() {
                   ) : null}
 
                   {summary.plans.length > 0 ? (
-                    <div className="pt-4 pb-3 border-b border-[#CED6DE]">
-                      <p className="text-xs uppercase text-[#A8B2BD] leading-4 pb-1">Plan</p>
+                    <div className="border-b border-border pb-3 pt-4">
+                      <p className="pb-1 text-xs uppercase leading-4 text-muted-foreground">Plan</p>
                       <div className="flex flex-col gap-4">
                         {summary.plans.map(({ product, qty, variantId }) => (
                           <ReviewItem
@@ -495,33 +495,33 @@ function App() {
               {/* Shipping */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <span className="size-10 bg-white rounded-[5px] flex items-center justify-center shrink-0 shadow-sm">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-[5px] bg-white shadow-sm">
                     <img src={fastShippingIcon} alt="Fast Shipping" className="size-8 object-contain" />
                   </span>
-                  <span className="text-sm leading-4 text-[#0B0D10]">Fast Shipping</span>
+                  <span className="text-sm leading-4 text-foreground">Fast Shipping</span>
                 </div>
-                <div className="flex flex-col justify-center items-end leading-none">
-                  <span className="text-sm text-[#575757] line-through leading-4">$5.99</span>
-                  <span className="text-sm text-[#4E2FD2] leading-4 font-bold">FREE</span>
+                <div className="flex flex-col items-end justify-center leading-none">
+                  <span className="text-sm leading-4 line-through text-muted-foreground">$5.99</span>
+                  <span className="text-sm font-bold leading-4 text-primary">FREE</span>
                 </div>
               </div>
 
               {/* Seal + price block */}
-              <div className="flex items-center justify-between gap-3 pt-6 mt-2">
+              <div className="mt-2 flex items-center justify-between gap-3 pt-6">
                 <img src={satisfactionBadge} alt="100% Satisfaction Guarantee" className="size-[78px] shrink-0 object-contain" />
                 <div className="flex flex-col items-end text-right">
                   {summary.hasItems ? (
-                    <span className="bg-[#4E2FD2] text-white px-2 py-0.5 rounded text-sm mb-2">
+                    <span className="mb-2 rounded bg-primary px-2 py-0.5 text-sm text-white">
                       as low as ${summary.financingPrice}/mo
                     </span>
                   ) : null}
                   <div className="flex items-center gap-2">
                     {summary.totalSavings > 0.01 ? (
-                      <span className="text-[#6F7882] line-through text-lg leading-5 tabular-nums">
+                      <span className="text-lg leading-5 tabular-nums line-through text-muted-foreground">
                         ${summary.finalTotalCompare.toFixed(2)}
                       </span>
                     ) : null}
-                    <span className="text-[34px] font-bold text-[#4E2FD2] leading-none tabular-nums tracking-tight">
+                    <span className="text-[34px] font-bold leading-none tracking-tight tabular-nums text-primary">
                       ${summary.finalTotalActive.toFixed(2)}
                     </span>
                   </div>
@@ -530,7 +530,7 @@ function App() {
 
               {/* Savings message */}
               {summary.totalSavings > 0.01 ? (
-                <div className="text-center text-xs leading-4 text-[#0AA288] ">
+                <div className="text-center text-xs leading-4 text-success">
                   Congrats! You're saving ${summary.totalSavings.toFixed(2)} on your security bundle!
                 </div>
               ) : null}
@@ -539,7 +539,7 @@ function App() {
               <Button
                 onClick={handleCheckout}
                 disabled={!summary.hasItems}
-                className="w-full bg-[#4E2FD2] hover:bg-[#4E2FD2]/80 disabled:opacity-40 text-white h-12 rounded text-lg font-bold leading-4 transition-colors duration-150 cursor-pointer active:scale-[0.98] shadow-sm"
+                className="h-12 w-full cursor-pointer rounded bg-primary text-lg font-bold leading-4 text-white shadow-sm transition-colors duration-150 hover:bg-primary/80 active:scale-[0.98] disabled:opacity-40"
               >
                 Checkout
               </Button>
@@ -547,7 +547,7 @@ function App() {
               {/* Save link */}
               <button
                 onClick={handleSaveConfiguration}
-                className="self-center text-sm text-[#484848] hover:text-[#1F1F1F] italic underline underline-offset-2 transition-colors cursor-pointer mt-1"
+                className="mt-1 cursor-pointer self-center text-sm italic underline underline-offset-2 transition-colors text-muted-foreground hover:text-foreground"
               >
                 Save my system for later
               </button>
