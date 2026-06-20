@@ -26,3 +26,7 @@ pnpm run dev    # Start dev server at http://localhost:5173
 pnpm run lint   # Lint code
 pnpm run build  # Build for production
 ```
+
+## Development Mock API
+
+During development, `products.json` is served via a custom Vite plugin defined in `vite.config.ts`. This allows the frontend to fetch data asynchronously from `/api/products`, mimicking a real backend connection and allowing for realistic loading state management.
