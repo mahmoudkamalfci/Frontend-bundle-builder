@@ -7,7 +7,7 @@ import fs from 'fs'
 const mockApiPlugin = () => ({
   name: 'mock-api',
   configureServer(server: any) {
-    server.middlewares.use('/api/products', (req: any, res: any) => {
+    server.middlewares.use('/api/products', (_req: any, res: any) => {
       const data = fs.readFileSync(path.resolve(__dirname, './src/data/products.json'), 'utf-8')
       res.setHeader('Content-Type', 'application/json')
       res.end(data)
