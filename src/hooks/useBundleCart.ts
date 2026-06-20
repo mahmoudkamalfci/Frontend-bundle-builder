@@ -1,9 +1,9 @@
 import { useState, useMemo, useEffect } from 'react'
-import type { Product } from '@/types'
+import type { Product, BundleStepType } from '@/types'
 import { SEED_CART, SEED_VARIANTS } from '../data/seed'
 
 export function useBundleCart() {
-  const [productsData, setProductsData] = useState<any>(null)
+  const [productsData, setProductsData] = useState<{ steps: BundleStepType[] } | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
 
@@ -88,9 +88,9 @@ export function useBundleCart() {
       const [productId, variantId] = cartKey.split('::')
       let matchedProduct: Product | undefined
       let matchedStepId = ''
-      productsData.steps.forEach((step: any) => {
-        const found = step.products.find((p: any) => p.id === productId)
-        if (found) { matchedProduct = found as unknown as Product; matchedStepId = step.id }
+      productsData.steps.forEach((step: BundleStepType) => {
+        const found = step.products.find((p) => p.id === productId)
+        if (found) { matchedProduct = found; matchedStepId = step.id }
       })
       if (!matchedProduct) return
       subtotalActive += matchedProduct.price * qty

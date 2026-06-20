@@ -57,6 +57,14 @@ export interface ToastNotificationsProps {
   totalAmount: number
 }
 
+export interface BundleStepType {
+  id: string
+  number: number
+  title: string
+  icon: string
+  products: Product[]
+}
+
 export interface BundleStepsProps {
   cart: Record<string, number>
   selectedVariants: Record<string, string>
@@ -64,7 +72,7 @@ export interface BundleStepsProps {
   getStepSelectedCount: (products: Product[]) => number
   onQuantityChange: (productId: string, variantId: string, qty: number) => void
   onVariantChange: (productId: string, variantId: string) => void
-  productsData?: any
+  productsData?: { steps: BundleStepType[] }
 }
 
 export interface SummaryItem {

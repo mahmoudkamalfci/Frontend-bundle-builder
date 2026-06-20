@@ -4,15 +4,7 @@ import { Button } from './ui/button'
 import { ProductCard } from './ProductCard'
 import { StepIcon } from './StepIcon'
 import { cn } from '@/lib/utils'
-import type { Product, BundleStepsProps } from '@/types'
-
-interface BundleStepType {
-  id: string
-  number: number
-  title: string
-  icon: string
-  products: Product[]
-}
+import type { BundleStepsProps, BundleStepType } from '@/types'
 
 export function BundleSteps({
   cart,
