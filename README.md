@@ -42,13 +42,9 @@ A premium, interactive, responsive **React + TypeScript + Vite** smart home secu
 
 ## Technical Decisions & Tradeoffs
 
-### Single-Image Color Variants (CSS Filters)
-To respect the constraint of using only the provided image asset (`product-2.png`), I implemented a high-performance CSS filter switcher in `ProductCard.tsx`:
-* **White**: default rendering.
-* **Grey**: `filter: grayscale(100%) brightness(0.65)`
-* **Black**: `filter: grayscale(100%) brightness(0.25)`
-
-This applies to both the main product cards and the tiny round thumbnail swatches, providing a lightweight, responsive, and file-size-efficient way to simulate variants without needing extra heavy image files.
+### Dynamic Product Thumbnails
+Product variant thumbnails are managed dynamically using the `products.json` data configuration and the `getProductImage` helper. 
+Instead of relying on CSS filters, each product variant is mapped directly to a specific real image asset (e.g., `Wyze_Cam_v4_white.png`, `Wyze_Cam_v4_black.png`) when available, while gracefully falling back to the default product image if a variant image is not provided. This ensures an exact, high-fidelity representation of different product colors without needing complex CSS color manipulations.
 
 ### Seeding Initial Load State
 The app loads pre-populated with:
