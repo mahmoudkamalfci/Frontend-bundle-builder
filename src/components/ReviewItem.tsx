@@ -1,5 +1,5 @@
 import { QuantityStepper } from './QuantityStepper'
-import productImg from '../assets/images/products/product-2.png'
+import { getProductImage } from '@/lib/images'
 import type { ReviewItemProps } from '@/types'
 
 export function ReviewItem({
@@ -9,11 +9,6 @@ export function ReviewItem({
   isPlan = false,
   onQtyChange,
 }: ReviewItemProps) {
-  const activeVariant = product.variants?.find((v) => v.id === variantId)
-  const imageStyle =
-    activeVariant?.imageFilter && activeVariant.imageFilter !== 'none'
-      ? { filter: activeVariant.imageFilter }
-      : {}
 
   return (
     <div className="flex items-center justify-between gap-3">
@@ -22,9 +17,8 @@ export function ReviewItem({
 
         <div className="flex size-10 shrink-0 items-center justify-center rounded-[5px] bg-white p-1 shadow-sm">
           <img
-            src={productImg}
+            src={getProductImage(product, variantId)}
             alt={product.title}
-            style={imageStyle}
             className="max-h-full max-w-full object-contain"
           />
         </div>

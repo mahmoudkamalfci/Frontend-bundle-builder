@@ -3,6 +3,7 @@ export interface ProductVariant {
   name: string
   colorValue: string
   imageFilter: string
+  image?: string
 }
 
 export interface Product {
@@ -15,6 +16,7 @@ export interface Product {
   price: number
   variants?: ProductVariant[]
   unit?: string
+  image?: string
 }
 
 export interface ProductCardProps {

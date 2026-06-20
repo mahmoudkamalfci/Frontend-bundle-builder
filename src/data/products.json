@@ -15,43 +15,89 @@
           "compareAtPrice": 35.98,
           "price": 27.98,
           "variants": [
-            { "id": "white", "name": "White", "colorValue": "#FFFFFF", "imageFilter": "none" },
-            { "id": "grey", "name": "Grey", "colorValue": "#8E8E93", "imageFilter": "grayscale(100%) brightness(0.65)" },
-            { "id": "black", "name": "Black", "colorValue": "#1C1C1E", "imageFilter": "grayscale(100%) brightness(0.25)" }
-          ]
+            {
+              "id": "white",
+              "name": "White",
+              "colorValue": "#FFFFFF",
+              "imageFilter": "none",
+              "image": "Wyze_Cam_v4_white.png"
+            },
+            {
+              "id": "grey",
+              "name": "Grey",
+              "colorValue": "#8E8E93",
+              "imageFilter": "grayscale(100%) brightness(0.65)",
+              "image": "Wyze_Cam_v4_grey.png"
+            },
+            {
+              "id": "black",
+              "name": "Black",
+              "colorValue": "#1C1C1E",
+              "imageFilter": "grayscale(100%) brightness(0.25)",
+              "image": "Wyze_Cam_v4_black.png"
+            }
+          ],
+          "image": "Wyze_Cam_v4.png"
         },
         {
           "id": "wyze-cam-pan-v3",
           "title": "Wyze Cam Pan v3",
-          "description": "360° pan and 180° tilt security camera.",
+          "description": "360\u00b0 pan and 180\u00b0 tilt security camera.",
           "learnMoreUrl": "https://wyze.com/wyze-cam-pan-v3.html",
           "discountBadge": "Save 12%",
           "compareAtPrice": 39.98,
           "price": 34.98,
           "variants": [
-            { "id": "white", "name": "White", "colorValue": "#FFFFFF", "imageFilter": "none" },
-            { "id": "black", "name": "Black", "colorValue": "#1C1C1E", "imageFilter": "grayscale(100%) brightness(0.25)" }
-          ]
+            {
+              "id": "white",
+              "name": "White",
+              "colorValue": "#FFFFFF",
+              "imageFilter": "none",
+              "image": "Wyze_Cam_Pan_v3_white.png"
+            },
+            {
+              "id": "black",
+              "name": "Black",
+              "colorValue": "#1C1C1E",
+              "imageFilter": "grayscale(100%) brightness(0.25)",
+              "image": "Wyze_Cam_Pan_v3_black.png"
+            }
+          ],
+          "image": "Wyze_Cam_Pan_v3.png"
         },
         {
           "id": "wyze-cam-floodlight-v2",
           "title": "Wyze Cam Floodlight v2",
-          "description": "2K floodlight camera with a 160° wide-angle view for your garage.",
+          "description": "2K floodlight camera with a 160\u00b0 wide-angle view for your garage.",
           "learnMoreUrl": "https://wyze.com/wyze-cam-floodlight-v2.html",
           "discountBadge": "Save 22%",
           "compareAtPrice": 89.98,
           "price": 69.98,
           "variants": [
-            { "id": "white", "name": "White", "colorValue": "#FFFFFF", "imageFilter": "none" },
-            { "id": "black", "name": "Black", "colorValue": "#1C1C1E", "imageFilter": "grayscale(100%) brightness(0.25)" }
-          ]
+            {
+              "id": "white",
+              "name": "White",
+              "colorValue": "#FFFFFF",
+              "imageFilter": "none",
+              "image": "Wyze_Cam_Floodlight_v2_white.png"
+            },
+            {
+              "id": "black",
+              "name": "Black",
+              "colorValue": "#1C1C1E",
+              "imageFilter": "grayscale(100%) brightness(0.25)",
+              "image": "Wyze_Cam_Floodlight_v2_black.png"
+            }
+          ],
+          "image": "Wyze_Cam_Floodlight_v2.png"
         },
         {
           "id": "wyze-duo-cam-doorbell",
           "title": "Wyze Duo Cam Doorbell",
           "description": "Two cameras. Two views. Double the porch protection.",
           "learnMoreUrl": "https://wyze.com/wyze-duo-cam-doorbell.html",
-          "price": 69.98
+          "price": 69.98,
+          "image": "Wyze_Duo_Cam_Doorbell.png"
         },
         {
           "id": "wyze-battery-cam-pro",
@@ -60,9 +106,22 @@
           "learnMoreUrl": "https://wyze.com/wyze-battery-cam-pro.html",
           "price": 89.98,
           "variants": [
-            { "id": "white", "name": "White", "colorValue": "#FFFFFF", "imageFilter": "none" },
-            { "id": "black", "name": "Black", "colorValue": "#1C1C1E", "imageFilter": "grayscale(100%) brightness(0.25)" }
-          ]
+            {
+              "id": "white",
+              "name": "White",
+              "colorValue": "#FFFFFF",
+              "imageFilter": "none",
+              "image": "Wyze_Battery_Cam_Pro_white.png"
+            },
+            {
+              "id": "black",
+              "name": "Black",
+              "colorValue": "#1C1C1E",
+              "imageFilter": "grayscale(100%) brightness(0.25)",
+              "image": "Wyze_Battery_Cam_Pro_black.png"
+            }
+          ],
+          "image": "Wyze_Battery_Cam_Pro.png"
         }
       ]
     },
@@ -79,7 +138,8 @@
           "learnMoreUrl": "https://wyze.com/service-plans",
           "compareAtPrice": 12.99,
           "price": 9.99,
-          "unit": "/mo"
+          "unit": "/mo",
+          "image": "Cam_Unlimited.png"
         },
         {
           "id": "cam-plus-plan",
@@ -87,7 +147,8 @@
           "description": "Single camera coverage, 14-day cloud storage, and smart detections.",
           "learnMoreUrl": "https://wyze.com/service-plans",
           "price": 3.99,
-          "unit": "/mo"
+          "unit": "/mo",
+          "image": "Cam_Plus.png"
         }
       ]
     },
@@ -102,7 +163,8 @@
           "title": "Wyze Sense Motion Sensor",
           "description": "Detects motion up to 30 feet away with 120-degree range.",
           "learnMoreUrl": "https://wyze.com/wyze-sense.html",
-          "price": 29.99
+          "price": 29.99,
+          "image": "Wyze_Sense_Motion_Sensor.png"
         },
         {
           "id": "wyze-sense-hub",
@@ -110,7 +172,8 @@
           "description": "The brain of your security system. Required for sensors.",
           "learnMoreUrl": "https://wyze.com/wyze-sense.html",
           "compareAtPrice": 29.92,
-          "price": 0.00
+          "price": 0.0,
+          "image": "Wyze_Sense_Hub.png"
         }
       ]
     },
@@ -125,7 +188,8 @@
           "title": "Wyze MicroSD Card (256GB)",
           "description": "Class 10 storage card for continuous local recording.",
           "learnMoreUrl": "https://wyze.com/wyze-microsd-card.html",
-          "price": 20.98
+          "price": 20.98,
+          "image": "Wyze_MicroSD_Card_256GB.png"
         }
       ]
     }

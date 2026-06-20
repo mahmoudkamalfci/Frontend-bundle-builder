@@ -1,9 +1,8 @@
-import * as React from "react"
 import { cva } from "class-variance-authority"
 import { cn } from "@/lib/utils"
-import productImg from "@/assets/images/products/product-2.png"
 import { QuantityStepper } from "./QuantityStepper"
 import type { ProductCardProps } from "@/types"
+import { getProductImage } from "@/lib/images"
 
 const variantSelectorVariants = cva(
   "flex items-center gap-1 rounded-[2px] border px-1 py-px text-[10px] font-medium select-none transition-all duration-150 cursor-pointer",
@@ -31,16 +30,7 @@ export function ProductCard({
   maxQuantity,
   className,
 }: ProductCardProps) {
-  // Find active variant
-  const activeVariant = product.variants?.find((v) => v.id === activeVariantId)
 
-  // Custom image style based on variant filter
-  const imageStyle: React.CSSProperties = React.useMemo(() => {
-    if (activeVariant?.imageFilter && activeVariant.imageFilter !== 'none') {
-      return { filter: activeVariant.imageFilter }
-    }
-    return {}
-  }, [activeVariant])
 
   return (
 
@@ -65,9 +55,8 @@ export function ProductCard({
       {/* Image */}
       <div className="flex w-[100px] shrink-0 items-center justify-center bg-white">
         <img
-          src={productImg}
+          src={getProductImage(product, activeVariantId)}
           alt={product.title}
-          style={imageStyle}
           className="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-105"
         />
       </div>
@@ -108,10 +97,9 @@ export function ProductCard({
                   aria-selected={isActive}
                 >
                   <img
-                    src={productImg}
+                    src={getProductImage(product, variant.id)}
                     alt={variant.name}
                     className="size-7 object-contain"
-                    style={{ filter: variant.imageFilter !== 'none' ? variant.imageFilter : undefined }}
                   />
                   {variant.name}
                 </button>
