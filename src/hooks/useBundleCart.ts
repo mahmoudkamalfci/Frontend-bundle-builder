@@ -1,9 +1,27 @@
-import { useState, useMemo } from 'react'
-import productsData from '../data/products.json'
+import { useState, useMemo, useEffect } from 'react'
 import type { Product } from '@/types'
 import { SEED_CART, SEED_VARIANTS } from '../data/seed'
 
 export function useBundleCart() {
+  const [productsData, setProductsData] = useState<any>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch products')
+        return res.json()
+      })
+      .then(data => {
+        setProductsData(data)
+        setIsLoading(false)
+      })
+      .catch(err => {
+        setError(err)
+        setIsLoading(false)
+      })
+  }, [])
 
   const [cart, setCart] = useState<Record<string, number>>(() => {
     try {
@@ -61,13 +79,17 @@ export function useBundleCart() {
     const sensors: Array<{ product: Product; qty: number; variantId: string }> = []
     const accessories: Array<{ product: Product; qty: number; variantId: string }> = []
 
+    if (!productsData) {
+      return { cameras, plans, sensors, accessories, finalTotalActive: 0, finalTotalCompare: 0, totalSavings: 0, financingPrice: '0.00', hasItems: false }
+    }
+
     Object.entries(cart).forEach(([cartKey, qty]) => {
       if (qty <= 0) return
       const [productId, variantId] = cartKey.split('::')
       let matchedProduct: Product | undefined
       let matchedStepId = ''
-      productsData.steps.forEach((step) => {
-        const found = step.products.find((p) => p.id === productId)
+      productsData.steps.forEach((step: any) => {
+        const found = step.products.find((p: any) => p.id === productId)
         if (found) { matchedProduct = found as unknown as Product; matchedStepId = step.id }
       })
       if (!matchedProduct) return
@@ -87,7 +109,7 @@ export function useBundleCart() {
     const financingPrice = (finalTotalActive * 0.1021).toFixed(2)
     const hasItems = cameras.length > 0 || plans.length > 0 || sensors.length > 0 || accessories.length > 0
     return { cameras, plans, sensors, accessories, finalTotalActive, finalTotalCompare, totalSavings, financingPrice, hasItems }
-  }, [cart])
+  }, [cart, productsData])
 
   const handleSaveConfiguration = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -108,6 +130,9 @@ export function useBundleCart() {
     showSaveSuccess,
     checkoutSuccess,
     summary,
+    productsData,
+    isLoading,
+    error,
     handleQuantityChange,
     handleVariantChange,
     isCardSelected,
