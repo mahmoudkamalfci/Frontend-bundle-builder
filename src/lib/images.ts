@@ -1,7 +1,6 @@
 import type { Product } from "@/types"
 
 export function getProductImage(product: Product, variantId?: string): string {
-  console.log(product.id, variantId);
   let imageName = product.image;
   
   if (variantId && product.variants) {

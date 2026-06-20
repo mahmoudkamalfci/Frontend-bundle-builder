@@ -6,6 +6,14 @@ import { StepIcon } from './StepIcon'
 import { cn } from '@/lib/utils'
 import type { Product, BundleStepsProps } from '@/types'
 
+interface BundleStepType {
+  id: string
+  number: number
+  title: string
+  icon: string
+  products: Product[]
+}
+
 export function BundleSteps({
   cart,
   selectedVariants,
@@ -26,9 +34,9 @@ export function BundleSteps({
           setExpandedStepIndex(val ? parseInt(val.replace('step-', ''), 10) : -1)
         }}
       >
-        {(productsData?.steps || []).map((step: any, stepIdx: number) => {
+        {(productsData?.steps || []).map((step: BundleStepType, stepIdx: number) => {
           const isOpen = expandedStepIndex === stepIdx
-          const selectedCount = getStepSelectedCount(step.products as unknown as Product[])
+          const selectedCount = getStepSelectedCount(step.products)
 
           return (
             <AccordionItem
@@ -68,7 +76,7 @@ export function BundleSteps({
               <AccordionContent className="flex flex-col gap-4 border-t border-neutral-100 bg-accent px-5 pb-5 pt-4">
                 {/* Product Cards */}
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {(step.products as unknown as Product[]).map((product) => {
+                  {step.products.map((product) => {
                     const activeVarId =
                       selectedVariants[product.id] || product.variants?.[0]?.id || 'default'
                     const variantQty = cart[`${product.id}::${activeVarId}`] || 0
