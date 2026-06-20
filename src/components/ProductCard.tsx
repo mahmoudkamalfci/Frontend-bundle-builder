@@ -43,9 +43,10 @@ export function ProductCard({
   }, [activeVariant])
 
   return (
+
     <div
       className={cn(
-        "relative flex w-full flex-col gap-3 rounded-[10px] p-3 text-left bg-white transition-all duration-200 max-sm:flex-row max-sm:gap-4",
+        "relative flex w-full flex-row gap-4 rounded-[10px] p-3 text-left bg-white transition-all duration-200",
         isSelected
           ? "border-2 border-primary/70 shadow-sm"
           : "border border-neutral-200 hover:border-neutral-300 hover:shadow-sm",
@@ -62,7 +63,7 @@ export function ProductCard({
       ) : null}
 
       {/* Image */}
-      <div className="flex w-full items-center justify-center bg-white h-[110px] max-sm:w-[100px] max-sm:shrink-0 max-sm:h-auto">
+      <div className="flex w-[100px] shrink-0 items-center justify-center bg-white">
         <img
           src={productImg}
           alt={product.title}

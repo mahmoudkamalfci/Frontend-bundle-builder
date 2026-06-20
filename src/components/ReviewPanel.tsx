@@ -115,7 +115,6 @@ export function ReviewPanel({ summary, onQtyChange, onSave, onCheckout }: Review
           </div>
         </div>
 
-        {/* Right Side: Totals + CTA */}
         <div className="flex flex-col gap-4 pt-4 md:w-[260px] md:shrink-0 md:pt-0 lg:w-full lg:pt-4">
           {/* Shipping */}
           <div className="flex items-center justify-between">
@@ -146,11 +145,11 @@ export function ReviewPanel({ summary, onQtyChange, onSave, onCheckout }: Review
               ) : null}
               <div className="flex items-center gap-2">
                 {summary.totalSavings > 0.01 ? (
-                  <span className="text-lg leading-5 tabular-nums line-through text-muted-foreground">
+                  <span className="text-base xl:text-lg leading-5 tabular-nums line-through text-muted-foreground">
                     ${summary.finalTotalCompare.toFixed(2)}
                   </span>
                 ) : null}
-                <span className="text-2xl font-bold leading-none tracking-tight tabular-nums text-primary md:text-[34px]">
+                <span className="text-2xl xl:text-[32px] font-bold leading-none tracking-tight tabular-nums text-primary">
                   ${summary.finalTotalActive.toFixed(2)}
                 </span>
               </div>

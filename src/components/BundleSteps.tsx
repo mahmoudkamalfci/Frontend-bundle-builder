@@ -67,7 +67,7 @@ export function BundleSteps({
 
               <AccordionContent className="flex flex-col gap-4 border-t border-neutral-100 bg-accent px-5 pb-5 pt-4">
                 {/* Product Cards */}
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {(step.products as unknown as Product[]).map((product) => {
                     const activeVarId =
                       selectedVariants[product.id] || product.variants?.[0]?.id || 'default'
