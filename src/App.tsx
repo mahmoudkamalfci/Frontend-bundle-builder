@@ -11,6 +11,8 @@ function App() {
     showSaveSuccess,
     checkoutSuccess,
     summary,
+    isLoading,
+    error,
     handleQuantityChange,
     handleVariantChange,
     isCardSelected,
@@ -18,6 +20,22 @@ function App() {
     handleSaveConfiguration,
     handleCheckout,
   } = useBundleCart()
+
+  if (error) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p className="text-xl text-red-500">Failed to load products: {error.message}</p>
+      </div>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-black"></div>
+      </div>
+    )
+  }
 
   return (
     <main className="container mx-auto min-h-screen p-4 md:p-6 lg:p-8">
