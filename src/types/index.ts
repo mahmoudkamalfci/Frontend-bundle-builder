@@ -64,6 +64,7 @@ export interface BundleStepsProps {
   getStepSelectedCount: (products: Product[]) => number
   onQuantityChange: (productId: string, variantId: string, qty: number) => void
   onVariantChange: (productId: string, variantId: string) => void
+  productsData?: any
 }
 
 export interface SummaryItem {

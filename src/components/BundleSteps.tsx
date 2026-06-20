@@ -4,7 +4,6 @@ import { Button } from './ui/button'
 import { ProductCard } from './ProductCard'
 import { StepIcon } from './StepIcon'
 import { cn } from '@/lib/utils'
-import productsData from '../data/products.json'
 import type { Product, BundleStepsProps } from '@/types'
 
 export function BundleSteps({
@@ -14,6 +13,7 @@ export function BundleSteps({
   getStepSelectedCount,
   onQuantityChange,
   onVariantChange,
+  productsData,
 }: BundleStepsProps) {
   const [expandedStepIndex, setExpandedStepIndex] = useState<number>(0)
   return (
@@ -26,7 +26,7 @@ export function BundleSteps({
           setExpandedStepIndex(val ? parseInt(val.replace('step-', ''), 10) : -1)
         }}
       >
-        {productsData.steps.map((step, stepIdx) => {
+        {(productsData?.steps || []).map((step: any, stepIdx: number) => {
           const isOpen = expandedStepIndex === stepIdx
           const selectedCount = getStepSelectedCount(step.products as unknown as Product[])
 
@@ -89,7 +89,7 @@ export function BundleSteps({
                 </div>
 
                 {/* Next step button */}
-                {stepIdx < 3 ? (
+                {stepIdx < (productsData?.steps?.length || 0) - 1 ? (
                   <Button
                     variant="outline"
                     onClick={() => setExpandedStepIndex(stepIdx + 1)}

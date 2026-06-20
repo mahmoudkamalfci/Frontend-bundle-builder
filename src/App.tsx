@@ -13,6 +13,7 @@ function App() {
     summary,
     isLoading,
     error,
+    productsData,
     handleQuantityChange,
     handleVariantChange,
     isCardSelected,
@@ -59,6 +60,7 @@ function App() {
           getStepSelectedCount={getStepSelectedCount}
           onQuantityChange={handleQuantityChange}
           onVariantChange={handleVariantChange}
+          productsData={productsData}
         />
 
         {/* Right Column: Review Panel (5/12) */}
