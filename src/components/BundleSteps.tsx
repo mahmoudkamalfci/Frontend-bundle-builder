@@ -95,7 +95,7 @@ export function BundleSteps({
                     onClick={() => setExpandedStepIndex(stepIdx + 1)}
                     className="h-10 cursor-pointer self-center rounded-[8px] border border-primary bg-transparent px-6 text-lg text-primary transition-colors duration-150 hover:bg-primary/5 active:scale-[0.97]"
                   >
-                    Next: {productsData.steps[stepIdx + 1].title}
+                    Next: {productsData?.steps[stepIdx + 1].title}
                   </Button>
                 ) : null}
               </AccordionContent>
